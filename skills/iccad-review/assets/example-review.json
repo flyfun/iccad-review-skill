@@ -1,0 +1,351 @@
+{
+  "schema_version": "1.0",
+  "mode": "synthetic",
+  "_note": "合成演示记录。全部依据编号（EX- 前缀）、数值与人工记录均为虚构，仅用于验证套件的记录关系与脚本行为，不代表任何真实工程，也不证明工程精度。",
+  "project": {
+    "id": "EX-SYN-001",
+    "name": "示例水库除险加固工程初步设计报告（合成）",
+    "region": "示例省示例市",
+    "project_type": "水库除险加固",
+    "module": "M1",
+    "modules_extra": [],
+    "stage": "preliminary",
+    "grade": "III",
+    "review_date": "2026-10-24",
+    "baseline_date": "2026-10-20",
+    "baseline_id": "送审稿V1",
+    "scope_ref": "合成示例任务书 EX-01",
+    "planned_check_ids": ["C01", "C02", "C03", "C04", "C05"],
+    "requested_disciplines": ["dam", "geotech", "cost", "coordination"],
+    "data_class": "synthetic",
+    "processing": {
+      "mode": "local",
+      "environment_verified": true,
+      "authorization_ref": "EX-AUTH-01（合成）",
+      "sanitization_ref": "EX-SAN-01（合成）"
+    }
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "path": "synthetic-report.txt",
+      "sha256": "89d2206cccd09655388c98503af6e3bd5b6dafc271cd1a7bdc040ae2a6a2e7f0",
+      "revision": "送审稿V1",
+      "discipline": "general",
+      "capability": "text_and_tables",
+      "locator_convention": "章节号 / 表号 / 页码"
+    },
+    {
+      "id": "S02",
+      "path": "synthetic-drawing-index.txt",
+      "sha256": "fd2dcceba7a4959887572d68c373b0e7dd6c0e721d0b81d176f295365be419ff",
+      "revision": "送审稿V1",
+      "discipline": "coordination",
+      "capability": "drawing_list_only",
+      "locator_convention": "图号 + 图名"
+    },
+    {
+      "id": "S03",
+      "path": "synthetic-calculation.txt",
+      "sha256": "230a8dbc3f7ccf8f7fc54121b13de5ae0b96457123b6f715c2dbdcc85e251a3f",
+      "revision": "送审稿V1",
+      "discipline": "hydraulic",
+      "capability": "text_and_tables",
+      "locator_convention": "表号 / 工况名"
+    }
+  ],
+  "bases": [
+    {
+      "id": "B01",
+      "kind": "standard",
+      "title": "示例水利工程设计规范（合成）",
+      "identifier": "EX-SL-001",
+      "clause": "5.2.3",
+      "source_ref": "synthetic://EX-SL-001",
+      "authority": "synthetic",
+      "level": "sl",
+      "mandatory": true,
+      "status": "synthetic",
+      "applicability": "confirmed",
+      "effective_from": "2020-01-01",
+      "effective_to": null,
+      "verified_at": "2026-10-19",
+      "verified_by": "示例-合成记录",
+      "transition_ref": null,
+      "rights_basis": "合成示例，无版权材料",
+      "summary": "仅用于演示数值型强条的记录结构；第 5.2.3 条要求培厚段填筑压实度不小于 98%。"
+    },
+    {
+      "id": "B02",
+      "kind": "standard",
+      "title": "示例导流与施工组织规范（合成，已被替代）",
+      "identifier": "EX-SL-002",
+      "clause": "9.3.2",
+      "source_ref": "synthetic://EX-SL-002",
+      "authority": "synthetic",
+      "level": "sl_t",
+      "mandatory": false,
+      "status": "superseded",
+      "applicability": "confirmed",
+      "effective_from": "2015-06-01",
+      "effective_to": "2024-12-31",
+      "verified_at": "2026-10-19",
+      "verified_by": "示例-合成记录",
+      "transition_ref": "EX-TRANS-01（合成过渡规则：2025-01-01 起按 EX-SL-003 执行，在建项目可沿用原规范）",
+      "rights_basis": "合成示例，无版权材料",
+      "summary": "演示「已被替代但经确认适用性并附过渡依据」的依据记录路径。"
+    }
+  ],
+  "rules": [
+    {
+      "id": "R01",
+      "version": "1.0",
+      "discipline": "dam",
+      "basis_ids": ["B01"],
+      "applicability": {
+        "state": "applicable",
+        "rationale": "适用于本工程坝体培厚段填筑压实度控制；工程等别 III 等，规范未按等别分档。"
+      },
+      "status": "verified",
+      "verified_by": "示例-合成复核人",
+      "verified_at": "2026-10-19",
+      "verification_ref": "EX-VER-01（合成）",
+      "test_ref": "assets/example-review.json#C01（合成正样本）",
+      "criterion": {
+        "kind": "numeric",
+        "quantity": "坝体培厚段填筑压实度",
+        "object_scope": "坝体加高培厚段填筑施工控制指标",
+        "basis_locator": "EX-SL-001 第 5.2.3 条",
+        "explanation": "取报告中培厚段压实度控制值与规范下限比较；实测值不能替代控制标准。",
+        "operator": "ge",
+        "threshold": 98,
+        "unit": "%"
+      }
+    },
+    {
+      "id": "R02",
+      "version": "1.0",
+      "discipline": "coordination",
+      "basis_ids": ["B02"],
+      "applicability": {
+        "state": "applicable",
+        "rationale": "适用于导流方式与施工组织内容的完整性核对，仅作一致性判断。"
+      },
+      "status": "verified",
+      "verified_by": "示例-合成复核人",
+      "verified_at": "2026-10-19",
+      "verification_ref": "EX-VER-02（合成）",
+      "test_ref": "assets/example-review.json#C02（合成负样本）",
+      "criterion": {
+        "kind": "consistency",
+        "quantity": "导流方式与图纸目录一致性",
+        "object_scope": "施工组织设计导流章节与其对应图纸",
+        "basis_locator": "EX-SL-002 第 9.3.2 条",
+        "explanation": "正文描述的导流方式须有对应图纸支撑；无图纸时不判违规，记缺口。"
+      }
+    },
+    {
+      "id": "R03",
+      "version": "0.1",
+      "discipline": "hydraulic",
+      "basis_ids": ["B01"],
+      "applicability": {
+        "state": "draft",
+        "rationale": "泄流能力复核口径尚待与院内核定，阈值未确定，暂不作为可执行规则。"
+      },
+      "status": "draft",
+      "verified_by": null,
+      "verified_at": null,
+      "verification_ref": null,
+      "test_ref": null,
+      "criterion": {
+        "kind": "numeric",
+        "quantity": "校核工况泄流量",
+        "object_scope": "溢洪道泄流能力",
+        "basis_locator": null,
+        "explanation": "需补充适用条文与校核标准后方可启用。",
+        "operator": null,
+        "threshold": null,
+        "unit": null
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "C01",
+      "rule_id": "R01",
+      "origin": "plan",
+      "engine_ref": null,
+      "basis_ids": ["B01"],
+      "source_ids": ["S01"],
+      "status": "evaluated",
+      "result": "signal",
+      "reason": "报告给出的培厚段压实度控制值低于规范下限。",
+      "evidence": [
+        {
+          "source_id": "S01",
+          "source_sha256": "89d2206cccd09655388c98503af6e3bd5b6dafc271cd1a7bdc040ae2a6a2e7f0",
+          "locator": "第5章 5.2.1",
+          "excerpt": "培厚段填筑压实度按不小于 96% 控制。"
+        }
+      ],
+      "comparison": {
+        "quantity": "坝体培厚段填筑压实度",
+        "object_ref": "第5章 5.2.1 培厚段填筑控制指标",
+        "observed_value": 96,
+        "observed_unit": "%",
+        "normalized_value": 96,
+        "normalized_unit": "%",
+        "operator": "ge",
+        "threshold": 98,
+        "threshold_unit": "%",
+        "conditions_verified": true,
+        "conditions_ref": "已核对培厚段与坝体原填筑段划分，控制指标仅针对培厚段",
+        "evidence_index": 0
+      }
+    },
+    {
+      "id": "C02",
+      "rule_id": "R02",
+      "origin": "plan",
+      "engine_ref": null,
+      "basis_ids": ["B02"],
+      "source_ids": ["S01", "S02"],
+      "status": "evaluated",
+      "result": "no_signal",
+      "reason": "正文导流方式为枯水期围堰挡水、导流明渠泄流，图纸目录有 SJ-04 导流明渠平面图，二者对应。",
+      "evidence": [
+        {
+          "source_id": "S02",
+          "source_sha256": "fd2dcceba7a4959887572d68c373b0e7dd6c0e721d0b81d176f295365be419ff",
+          "locator": "图纸目录 SJ-04",
+          "excerpt": "SJ-04      导流明渠平面图                 1:1000"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "id": "C03",
+      "rule_id": "R02",
+      "origin": "plan",
+      "engine_ref": null,
+      "basis_ids": ["B02"],
+      "source_ids": ["S01"],
+      "status": "not_applicable",
+      "result": null,
+      "reason": "本次审查范围不含金属结构与启闭设备，防浪墙钢结构相关内容不适用本检查项。",
+      "evidence": [],
+      "comparison": null
+    },
+    {
+      "id": "C04",
+      "rule_id": "R01",
+      "origin": "plan",
+      "engine_ref": null,
+      "basis_ids": ["B01"],
+      "source_ids": ["S03"],
+      "status": "insufficient_input",
+      "result": null,
+      "reason": "计算书仅给出设计工况泄流量，缺校核工况与库水位—泄量关系，无法核对超标准工况泄流能力。",
+      "evidence": [],
+      "comparison": null
+    },
+    {
+      "id": "C05",
+      "rule_id": "R02",
+      "origin": "plan",
+      "engine_ref": null,
+      "basis_ids": ["B02"],
+      "source_ids": ["S01", "S02"],
+      "status": "evaluated",
+      "result": "signal",
+      "reason": "正文坝顶宽度与图纸目录图注不一致。",
+      "evidence": [
+        {
+          "source_id": "S01",
+          "source_sha256": "89d2206cccd09655388c98503af6e3bd5b6dafc271cd1a7bdc040ae2a6a2e7f0",
+          "locator": "第5章 5.2.2",
+          "excerpt": "坝顶宽度由 5.0m 加宽至 6.0m"
+        },
+        {
+          "source_id": "S02",
+          "source_sha256": "fd2dcceba7a4959887572d68c373b0e7dd6c0e721d0b81d176f295365be419ff",
+          "locator": "图纸目录 SJ-02",
+          "excerpt": "SJ-02      大坝典型横断面图               1:200（图注坝顶宽度 5.5m）"
+        }
+      ],
+      "comparison": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "check_id": "C01",
+      "kind": "rule_deviation",
+      "discipline": "dam",
+      "title": "培厚段填筑压实度控制值低于规范下限",
+      "observation": "报告第5章 5.2.1 将培厚段填筑压实度控制为不小于 96%，示例规范第 5.2.3 条要求不小于 98%，控制标准偏低 2 个百分点。",
+      "priority": "P1",
+      "confidence": "high",
+      "basis_ids": ["B01"],
+      "evidence": [
+        {
+          "source_id": "S01",
+          "source_sha256": "89d2206cccd09655388c98503af6e3bd5b6dafc271cd1a7bdc040ae2a6a2e7f0",
+          "locator": "第5章 5.2.1",
+          "excerpt": "培厚段填筑压实度按不小于 96% 控制。"
+        }
+      ],
+      "suggested_action": "将培厚段填筑压实度控制值调整为不小于 98%，并复核相应的碾压试验参数、检测频次与质量评定标准。",
+      "review": {
+        "status": "adopted",
+        "actor": "示例-审查责任人",
+        "at": "2026-10-21",
+        "record_ref": "EX-REV-01（合成）",
+        "note": "采纳，要求设计单位修改控制指标后重新提交。",
+        "baseline_id": "送审稿V1"
+      },
+      "closure": {
+        "status": "open",
+        "response": null,
+        "revision_source_ids": [],
+        "recheck": null
+      }
+    },
+    {
+      "id": "F02",
+      "check_id": "C05",
+      "kind": "document_conflict",
+      "discipline": "coordination",
+      "title": "坝顶宽度在正文与图纸目录之间不一致",
+      "observation": "正文 5.2.2 写坝顶宽度加宽至 6.0m，图纸目录 SJ-02 图注为 5.5m，相差 0.5m，影响工程量与防浪墙布置。",
+      "priority": "P2",
+      "confidence": "high",
+      "basis_ids": ["B02"],
+      "evidence": [
+        {
+          "source_id": "S01",
+          "source_sha256": "89d2206cccd09655388c98503af6e3bd5b6dafc271cd1a7bdc040ae2a6a2e7f0",
+          "locator": "第5章 5.2.2",
+          "excerpt": "坝顶宽度由 5.0m 加宽至 6.0m"
+        },
+        {
+          "source_id": "S02",
+          "source_sha256": "fd2dcceba7a4959887572d68c373b0e7dd6c0e721d0b81d176f295365be419ff",
+          "locator": "图纸目录 SJ-02",
+          "excerpt": "SJ-02      大坝典型横断面图               1:200（图注坝顶宽度 5.5m）"
+        }
+      ],
+      "suggested_action": "统一坝顶宽度取值，明确以哪一份为准，并同步修改正文、断面图与工程量表。",
+      "review": {
+        "status": "pending"
+      },
+      "closure": {
+        "status": "open"
+      }
+    }
+  ],
+  "conclusion": {
+    "status": "pending"
+  }
+}

@@ -1,0 +1,37 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Skill layout, metadata and references
+        run: python scripts/validate_skills.py
+      - name: Synthetic self-check and gate behaviour
+        run: python skills/iccad-review/scripts/self_check.py
+      - name: Documented exit codes
+        run: |
+          python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets/example-review.json
+          set +e
+          python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets/example-review.json --gate; blocked=$?
+          python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets/example-complete.json --gate; ready=$?
+          set -e
+          test "$blocked" = "3" || { echo "expected exit 3 for the incomplete record, got $blocked"; exit 1; }
+          test "$ready" = "0" || { echo "expected exit 0 for the complete record, got $ready"; exit 1; }
+      - name: Report rendering
+        run: python skills/iccad-review/scripts/render_report.py skills/iccad-review/assets/example-review.json --verify-files --output /tmp/report.md
+      - name: Install check round-trip
+        run: |
+          python install.py --target /tmp/skills
+          python install.py --target /tmp/skills --check

@@ -1,0 +1,73 @@
+{
+  "_note": "合成引擎输出样例，模仿 iccad-review 引擎 wsl_scan.py --json 的结构，仅用于验证 import_scan.py 的导入行为。数值、依据与结论均为虚构。",
+  "document": "synthetic-report.txt",
+  "parser": "txt",
+  "char_count": 690,
+  "scan": {
+    "domains": {"土石坝": 6, "河道": 1},
+    "primary_domain": "土石坝",
+    "engine_domain": "土石坝",
+    "engine_domains": ["土石坝"],
+    "domain_source": "auto",
+    "grade_map": {"III": 1},
+    "suppressed": 0,
+    "warnings": [],
+    "errors": [
+      {
+        "category": "数值阈值",
+        "location": "第5章 5.2.1",
+        "content": "培厚段填筑压实度控制值 96% 低于规范下限 98%",
+        "explanation": "按示例规范 EX-SL-001 第 5.2.3 条，培厚段填筑压实度不应低于 98%（合成依据）。",
+        "suggestion": "将控制值调整为不小于 98%，并复核碾压试验参数与检测频次。",
+        "confidence": "high",
+        "quote": "培厚段填筑压实度按不小于 96% 控制。",
+        "source": "确定性检查",
+        "finding_type": "value",
+        "is_suggestion": false,
+        "spec_refs": [{"code": "EX-SL-001", "clause": "5.2.3", "title": "示例水利工程设计规范"}]
+      },
+      {
+        "category": "工程经验专项",
+        "location": "高频问题模式快扫（M1·场景「导流」）",
+        "content": "施工导流设计深度：未见围堰稳定计算相关表述",
+        "explanation": "围堰稳定计算缺失为高频问题，置信度中等，需人工复核原文是否在地质专题或计算书中另行论述。",
+        "suggestion": "补充围堰稳定计算，或说明其另行成册。",
+        "confidence": "medium",
+        "quote": "",
+        "source": "确定性检查",
+        "finding_type": "missing",
+        "is_suggestion": false,
+        "spec_refs": []
+      },
+      {
+        "category": "跨规范逻辑链",
+        "location": "第5章 5.2.2",
+        "content": "坝顶宽度取值与图纸目录图注不一致",
+        "explanation": "正文写 6.0m，图纸目录 SJ-02 图注为 5.5m（合成对照）。",
+        "suggestion": "统一取值并同步修改正文、断面图与工程量表。",
+        "confidence": "medium",
+        "quote": "坝顶宽度由 5.0m 加宽至 6.0m",
+        "source": "确定性检查",
+        "finding_type": "conflict",
+        "is_suggestion": false,
+        "spec_refs": []
+      }
+    ]
+  },
+  "spec_codes": [
+    {
+      "code": "EX-SL-001",
+      "valid": false,
+      "message": "EX-SL-001 已被 EX-SL-003 替代（合成）",
+      "name": "示例水利工程设计规范",
+      "status": "被替代"
+    },
+    {
+      "code": "EX-SL-002",
+      "valid": true,
+      "message": "EX-SL-002 现行有效（合成）",
+      "name": "示例导流与施工组织规范",
+      "status": "现行"
+    }
+  ]
+}
