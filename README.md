@@ -563,7 +563,7 @@ rm -rf iccad-review iccad-intake iccad-standards iccad-rule-author iccad-route \
 - 数据级别是套件内部工作标签；网络边界取决于当前 Agent、OCR、embedding 与平台整体数据流，不能靠 Skill 文本强制隔离。
 - 本次验证为**合成流程与脚本行为**，尚无真实项目盲测，不提供检出率、漏报率或节时承诺。
 
-细节见 [审查契约](skills/iccad-review/references/review-contract.md)、[质量门禁](skills/iccad-review/references/quality-gates.md)、[ima 接入](skills/iccad-review/references/ima-integration.md)、[来源说明](SOURCE-MAP.md)、[验证记录](VALIDATION.md)、[合成示例报告](examples/示例审查意见书.md)。
+细节见 [审查契约](skills/iccad-review/references/review-contract.md)、[质量门禁](skills/iccad-review/references/quality-gates.md)、[ima 接入](skills/iccad-review/references/ima-integration.md)、[来源说明](SOURCE-MAP.md)、[验证记录](VALIDATION.md)、[合成示例报告](examples/示例审查意见书.md)、[本机安装记录](docs/安装记录-2026-10-24.md)。
 
 ## 许可
 
