@@ -42,6 +42,7 @@ python skills/iccad-review/scripts/ima_probe.py          # 无有效凭据时预
 | 引擎导入（无引文命中） | 记为 `insufficient_input`，不补造引文 | 符合 |
 | 报告渲染 | 七个章节齐全 | 齐全 |
 | ima 探针（凭据失效场景） | 报 `credential_invalid` 并给出处置提示，退出 2 | 符合 |
+| `--engine-rename` 冲突避让 | 引擎目录改名为 `iccad-engine`、frontmatter 同步、套件正常安装、`--check` 0 问题 | 通过（临时目录模拟 + 本机真实安装各一次） |
 
 ## ima 接入验证
 

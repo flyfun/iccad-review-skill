@@ -41,3 +41,12 @@ jobs:
         run: |
           python install.py --target /tmp/skills
           python install.py --target /tmp/skills --check
+      - name: Engine name conflict is auto-adopted
+        run: |
+          mkdir -p /tmp/kb/iccad-review/engine
+          printf -- '---\nname: iccad-review\ndescription: engine build\n---\n' > /tmp/kb/iccad-review/SKILL.md
+          python install.py --target /tmp/kb --engine-rename
+          test -d /tmp/kb/iccad-engine || { echo "engine skill was not renamed"; exit 1; }
+          grep -q '^name: iccad-engine$' /tmp/kb/iccad-engine/SKILL.md || { echo "frontmatter not synced"; exit 1; }
+          test -f /tmp/kb/iccad-review/SKILL.md || { echo "suite entry skill missing"; exit 1; }
+          python install.py --target /tmp/kb --check

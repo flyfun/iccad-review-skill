@@ -56,6 +56,32 @@ python install.py --target ~/.workbuddy/skills --check   # 期望：17 skills ch
 
 # 安装
 
+## 一句话安装（WorkBuddy）
+
+**Windows PowerShell**（复制整行，含分号）：
+
+```powershell
+git clone -q https://github.com/flyfun/iccad-review-skill.git "$env:TEMP\iccad-skill"; python "$env:TEMP\iccad-skill\install.py" --target "$env:USERPROFILE\.workbuddy\skills" --engine-rename
+```
+
+**Git Bash / macOS / Linux**：
+
+```bash
+git clone -q https://github.com/flyfun/iccad-review-skill.git /tmp/iccad-skill && python3 /tmp/iccad-skill/install.py --target ~/.workbuddy/skills --engine-rename
+```
+
+**本地已经有仓库**时，一行就够：
+
+```bash
+python install.py --target ~/.workbuddy/skills --engine-rename
+```
+
+跑完**新开一个会话**，技能才可见（技能列表在会话启动时加载）。
+
+- 前提：机器上已有 **Python 3.10+** 与 **git**。都没有就先看第 1 步。
+- `--engine-rename` 只在检测到同名引擎技能时才动手，平时不起作用；细节见第 3 步「同名冲突」。
+- 想先验证再安装：`python scripts/validate_skills.py && python skills/iccad-review/scripts/self_check.py`。
+
 ## 第 0 步：先确认你的情况
 
 | 你的情况 | 要做的事 |
@@ -200,6 +226,7 @@ python install.py --target "$env:USERPROFILE\.workbuddy\skills"
 | `--target` | 技能根目录，必填 |
 | `--check` | 只校验已安装状态，不写入 |
 | `--force` | 目标已有同名目录时强制覆盖（**不备份**） |
+| `--engine-rename` | 目标里已有**引擎版** `iccad-review` 时，先自动改名为 `iccad-engine`，两者并存 |
 
 **为什么必须整体安装、不能只挑几个**
 
@@ -218,17 +245,35 @@ Nothing was written. ...
 
 两者定位不同——引擎做零 Token 规则扫描，套件做流程与证据契约。三种处理方式：
 
-**方案①：给引擎技能改名（推荐）**
+**方案①：加 `--engine-rename`（推荐，自动）**
+
+```bash
+python install.py --target ~/.workbuddy/skills --engine-rename
+```
+
+脚本会检查目标里的 `iccad-review` 是否带 `engine/` 目录（引擎版的特征），是则改名为 `iccad-engine`，
+并把它的 `SKILL.md` 里 `name:` 同步改掉，然后正常安装 17 个套件技能。**引擎文件一个不动**（含 `.venv`、`references/`、`.work/` 历史输出）。
+
+输出示例：
+
+```
+已避让同名引擎技能：iccad-review -> iccad-engine (frontmatter name synced)
+  （引擎与套件并存；还原方式：把目录改回 iccad-review，并把 SKILL.md 的 name 改回）
+17 skills installed to C:\Users\<你>\.workbuddy\skills
+```
+
+还原：`mv iccad-engine iccad-review`，再把该目录 `SKILL.md` 的 `name:` 改回 `iccad-review`。
+
+**方案②：手工改名**
 
 ```bash
 cd ~/.workbuddy/skills
 mv iccad-review iccad-engine
 ```
 
-然后把 `iccad-engine/SKILL.md` 第一段的 `name: iccad-review` 改成 `name: iccad-engine`。
-引擎脚本用 `__file__` 推路径，改目录名不影响运行；**改完要新开会话**，否则旧名还在缓存里。
+再把 `iccad-engine/SKILL.md` 的 `name: iccad-review` 改成 `name: iccad-engine`。引擎脚本用 `__file__` 推路径，改目录名不影响运行。
 
-**方案②：装到独立目录**
+**方案③：装到独立目录**
 
 ```bash
 python install.py --target ~/skills-iccad
@@ -236,7 +281,7 @@ python install.py --target ~/skills-iccad
 
 再在宿主里把该目录登记为额外技能根（WorkBuddy 支持在设置里加自定义技能目录）。两套并存，互不干扰。
 
-**方案③：`--force` 覆盖** —— 会删掉原来的 `iccad-review` 目录，**引擎版就没了**。除非确认不再需要引擎，否则不要用。
+**不建议 `--force`**：它会删掉原来的 `iccad-review` 目录，**引擎版就没了**，且不备份。
 
 ### 手工安装（不想跑脚本时）
 
