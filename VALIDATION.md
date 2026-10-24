@@ -23,6 +23,7 @@ python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets
 python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets/example-review.json --gate
 python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets/example-complete.json --gate
 python skills/iccad-review/scripts/render_report.py skills/iccad-review/assets/example-review.json --verify-files --output examples/示例审查意见书.md
+python skills/iccad-review/scripts/ima_probe.py          # 无有效凭据时预期退出 2
 ```
 
 ## 结果
@@ -40,6 +41,19 @@ python skills/iccad-review/scripts/render_report.py skills/iccad-review/assets/e
 | draft 规则用于已求值检查 | 报结构错误 | 错误 |
 | 引擎导入（无引文命中） | 记为 `insufficient_input`，不补造引文 | 符合 |
 | 报告渲染 | 七个章节齐全 | 齐全 |
+| ima 探针（凭据失效场景） | 报 `credential_invalid` 并给出处置提示，退出 2 | 符合 |
+
+## ima 接入验证
+
+| 通路 | 验证内容 | 结果 |
+|---|---|---|
+| A 宿主连接器 | 调用连接器的知识库列表与检索接口 | 通过：可列出知识库并检索到规范文件（GB 50987-2014、SL 104-2015、施工导流设计导则等） |
+| B OpenAPI 凭据 | 本机 `~/.config/ima/` 存在 client_id / api_key，调用返回 HTTP 401 / `code 200002`（`skill auth failed`） | 属**凭据失效**，不是脚本缺陷；探针正确识别并给出重新生成指引 |
+| B 成功分支 | 用有效密钥跑通列表与检索 | **未在本机验证**（本地密钥已失效），需有效凭据后复测 |
+| C 引擎 CLI | 与 B 共用凭据与接口 | 依赖 B，未单独验证 |
+
+结论：ima 接通的判据是「能列出知识库且能检索到文件」，两条通路都有可行路径；
+本机脚本侧目前的阻塞点是密钥失效，按 `references/ima-integration.md` 的错误码表处理即可。
 
 ## 自检覆盖的行为
 
@@ -58,6 +72,7 @@ python skills/iccad-review/scripts/render_report.py skills/iccad-review/assets/e
 ## 未验证
 
 - 真实报告上的检出率、误报率、覆盖完整性。
+- ima 检索在**有效凭据**下的成功分支（列表、检索、跨库遍历）与限流表现。
 - DWG/DXF 图元级核对（无解析器，一律 `unsupported`）。
 - 扫描件 OCR 质量对要素核对的影响。
 - 多 Agent 并行写入 `review.json` 的冲突控制（当前设计为单写者，未做并发测试）。

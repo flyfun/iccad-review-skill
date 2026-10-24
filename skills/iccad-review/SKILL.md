@@ -70,6 +70,10 @@ python3 <本Skill目录>/scripts/render_report.py review/review.json --output re
 
 # 自检（合成样本）
 python3 <本Skill目录>/scripts/self_check.py
+
+# 条文原文检索的连通性自检（可选，需 ima 凭据）
+python3 <本Skill目录>/scripts/ima_probe.py
+python3 <本Skill目录>/scripts/ima_probe.py --search 压实度 --kb 规范库
 ```
 
 前两类校验区分「结构有效」「资料哈希一致」「具备审签准备条件」；未通过 `--gate` 也可以生成标注阻塞的内部工作稿。退出码 `0/2/3` 的含义见 [质量门禁](references/quality-gates.md)。
@@ -81,6 +85,9 @@ python3 <本Skill目录>/scripts/import_scan.py scan.json --document 报告.docx
 ```
 
 映射关系、三条硬规则与不导入的部分见 [引擎桥接](references/engine-bridge.md)。**引擎命中不等于疑点定稿**。
+
+`iccad-standards` 需要查条文原文时，可按 [ima 接入](references/ima-integration.md) 配好知识库检索；
+检索结果只是线索，`authority=official` 仍须可追溯的官方来源，**不得把摘要当条文原文**。
 
 ## 边界
 

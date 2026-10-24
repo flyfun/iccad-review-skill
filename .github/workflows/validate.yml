@@ -31,6 +31,12 @@ jobs:
           test "$ready" = "0" || { echo "expected exit 0 for the complete record, got $ready"; exit 1; }
       - name: Report rendering
         run: python skills/iccad-review/scripts/render_report.py skills/iccad-review/assets/example-review.json --verify-files --output /tmp/report.md
+      - name: ima probe fails cleanly without credentials
+        run: |
+          set +e
+          python skills/iccad-review/scripts/ima_probe.py --json; code=$?
+          set -e
+          test "$code" = "2" || { echo "expected exit 2 without ima credentials, got $code"; exit 1; }
       - name: Install check round-trip
         run: |
           python install.py --target /tmp/skills
