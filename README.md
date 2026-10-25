@@ -225,7 +225,8 @@ python install.py --target "$env:USERPROFILE\.workbuddy\skills"
 |---|---|
 | `--target` | 技能根目录，必填 |
 | `--check` | 只校验已安装状态，不写入 |
-| `--force` | 目标已有同名目录时强制覆盖（**不备份**） |
+| `--force` | 目标已有同名目录时强制覆盖（默认**不备份**，配合 `--backup` 可保留旧版） |
+| `--backup` | 须与 `--force` 同用：被替换的旧目录移到目标目录下隐藏文件夹 `.iccad-backup-<时间戳>/`，而非删除 |
 | `--engine-rename` | 目标里已有**引擎版** `iccad-review` 时，先自动改名为 `iccad-engine`，两者并存 |
 
 **为什么必须整体安装、不能只挑几个**
@@ -281,7 +282,8 @@ python install.py --target ~/skills-iccad
 
 再在宿主里把该目录登记为额外技能根（WorkBuddy 支持在设置里加自定义技能目录）。两套并存，互不干扰。
 
-**不建议 `--force`**：它会删掉原来的 `iccad-review` 目录，**引擎版就没了**，且不备份。
+**不建议单用 `--force`**：它会删掉原来的 `iccad-review` 目录，**引擎版就没了**，且不备份。
+确需覆盖时请用 `--force --backup`，旧目录会保留在 `.iccad-backup-<时间戳>/` 里，可手工移回。
 
 ### 手工安装（不想跑脚本时）
 

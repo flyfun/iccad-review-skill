@@ -8,10 +8,33 @@ import argparse
 import json
 import shutil
 import sys
+from datetime import datetime
 from pathlib import Path
+
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding='utf-8')
+    except (AttributeError, ValueError):
+        pass
 
 HERE = Path(__file__).resolve().parent
 SRC = HERE / 'skills'
+IGNORE = shutil.ignore_patterns('__pycache__', '*.pyc', '.venv', '.work')
+
+
+def skill_name(skill_md):
+    """Read `name` from the YAML frontmatter of a SKILL.md; None if absent."""
+    text = skill_md.read_text(encoding='utf-8')
+    if not text.startswith('---'):
+        return None
+    end = text.find('\n---', 3)
+    if end < 0:
+        return None
+    for line in text[3:end].splitlines():
+        key, _, value = line.partition(':')
+        if key.strip() == 'name':
+            return value.strip().strip('"').strip("'")
+    return None
 
 
 def say(msg):
@@ -65,8 +88,7 @@ def check(target):
             rows.append((src.name, 'MISSING'))
             bad += 1
             continue
-        head = skill_md.read_text(encoding='utf-8')[:400]
-        name_ok = f'name: {src.name}' in head
+        name_ok = skill_name(skill_md) == src.name
         rows.append((src.name, 'OK' if name_ok else 'NAME-MISMATCH'))
         bad += 0 if name_ok else 1
     for name, state in rows:
@@ -75,7 +97,7 @@ def check(target):
     return 0 if bad == 0 else 2
 
 
-def install(target, force, engine_rename=False):
+def install(target, force, engine_rename=False, backup=False):
     sources = discover()
     names = catalog_names()
     missing = sorted(set(p.name for p in sources) ^ set(names))
@@ -95,18 +117,27 @@ def install(target, force, engine_rename=False):
         for name in conflicts:
             say(f'  {target / name}')
         say('\nNothing was written. Move or rename them, choose another --target,')
-        say('or re-run with --force to replace (your existing copy is NOT backed up).')
+        say('or re-run with --force to replace (add --backup to keep your existing copy).')
         if 'iccad-review' in conflicts:
             say('若同名的是确定性引擎技能，加 --engine-rename 可自动把它改名为 iccad-engine。')
         return 2
     target.mkdir(parents=True, exist_ok=True)
+    backup_root = None
+    if backup and conflicts:
+        backup_root = target / f'.iccad-backup-{datetime.now():%Y%m%d-%H%M%S}'
+        backup_root.mkdir(parents=True, exist_ok=True)
     for src in sources:
         dst = target / src.name
         if dst.exists():
-            shutil.rmtree(dst)
-        shutil.copytree(src, dst)
+            if backup_root:
+                shutil.move(str(dst), str(backup_root / src.name))
+            else:
+                shutil.rmtree(dst)
+        shutil.copytree(src, dst, ignore=IGNORE)
         say(f'  installed {src.name}')
     say(f'\n{len(sources)} skills installed to {target}')
+    if backup_root:
+        say(f'旧版本已备份到：{backup_root}')
     say('Start a new session so the skill list refreshes.')
     return 0
 
@@ -118,14 +149,18 @@ def main():
     ap.add_argument('--force', action='store_true', help='Replace existing skill directories')
     ap.add_argument('--engine-rename', action='store_true',
                     help='If an iccad-review engine skill exists in the target, rename it to iccad-engine first')
+    ap.add_argument('--backup', action='store_true',
+                    help='With --force, move existing directories to a hidden .iccad-backup-<time> folder instead of deleting')
     args = ap.parse_args()
+    if args.backup and not args.force:
+        ap.error('--backup only makes sense together with --force')
     if args.check:
         if not args.target:
             ap.error('--check requires --target')
         return check(args.target.expanduser())
     if not args.target:
         ap.error('--target is required to install')
-    return install(args.target.expanduser(), args.force, args.engine_rename)
+    return install(args.target.expanduser(), args.force, args.engine_rename, args.backup)
 
 
 if __name__ == '__main__':
