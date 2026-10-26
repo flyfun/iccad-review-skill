@@ -20,6 +20,17 @@ jobs:
         run: python scripts/validate_skills.py
       - name: Synthetic self-check and gate behaviour
         run: python skills/iccad-review/scripts/self_check.py
+      # 引擎桥的回归守卫：三种真实产物格式都要能导入，且都要产出候选疑点、不得自动升 P1。
+      # （依赖库与引擎的一致性检查需要引擎仓，CI 里跑不了；用自带 fixture 覆盖转换逻辑。）
+      - name: Engine import CLI covers all three formats
+        run: |
+          SRC=skills/iccad-review/assets
+          OUT=.ci-out
+          mkdir -p $OUT
+          python skills/iccad-review/scripts/import_scan.py $SRC/engine-checklist-audit.json --document $SRC/synthetic-report.txt --out $OUT/audit.json
+          python skills/iccad-review/scripts/import_scan.py $SRC/engine-clause-verdict.json --document $SRC/synthetic-report.txt --out $OUT/verdict.json
+          python skills/iccad-review/scripts/import_scan.py $SRC/example-scan.json --document $SRC/synthetic-report.txt --out $OUT/scan.json
+          python -c "import json,sys; ns=('audit','verdict','scan'); ds={n:json.load(open('.ci-out/%s.json'%n,encoding='utf-8')) for n in ns}; bad=[n for n in ns if not ds[n]['findings']]; p1=[n for n in ns if any(f['priority']=='P1' for f in ds[n]['findings'])]; sys.exit(('no findings imported: %s'%bad) if bad else ('engine findings auto-promoted to P1: %s'%p1 if p1 else 0))"
       - name: Documented exit codes
         run: |
           python skills/iccad-review/scripts/validate_review.py skills/iccad-review/assets/example-review.json
@@ -50,3 +61,11 @@ jobs:
           grep -q '^name: iccad-engine$' /tmp/kb/iccad-engine/SKILL.md || { echo "frontmatter not synced"; exit 1; }
           test -f /tmp/kb/iccad-review/SKILL.md || { echo "suite entry skill missing"; exit 1; }
           python install.py --target /tmp/kb --check
+      # 单技能化后，0.x 的 16 个分散技能应被移走而不是删除。
+      - name: Legacy split skills are pruned, not deleted
+        run: |
+          mkdir -p /tmp/kp/iccad-dam /tmp/kp/iccad-floodeval
+          python install.py --target /tmp/kp --prune-legacy
+          test -d /tmp/kp/iccad-review || { echo "suite not installed"; exit 1; }
+          test ! -d /tmp/kp/iccad-dam || { echo "legacy dir left in place"; exit 1; }
+          ls -d /tmp/kp/.iccad-legacy-*/iccad-dam >/dev/null || { echo "legacy dir not backed up"; exit 1; }

@@ -94,6 +94,68 @@ def main():
     record('engine hit without quote becomes insufficient_input',
            len(no_quote) >= 1 and all(not c['evidence'] for c in no_quote), '')
 
+    # 10. format detection covers all three engine payloads
+    verdict_payload = load(ASSETS / 'engine-clause-verdict.json')
+    audit_payload = load(ASSETS / 'engine-checklist-audit.json')
+    detected = [import_scan.detect_format(p)[0] for p in (verdict_payload, audit_payload, scan)]
+    record('engine format detection', detected == ['clause-verdict', 'checklist-audit', 'engine-scan'],
+           f'got {detected}')
+
+    # 11. clause-verdict import: 5 态 -> 6 态, structurally valid
+    verdicts = import_scan.build_review(verdict_payload, ASSETS / 'synthetic-report.txt',
+                                        'clause-verdict', name='合成判词导入', module='M6')
+    got = validate_review.validate(verdicts, ASSETS, False)
+    record('verdict import is structurally valid', not got['errors'], '; '.join(got['errors'][:3]))
+    by_ref = {c['engine_ref'].split(':')[1].split('@')[0]: c for c in verdicts['checks']}
+    record('verdict 符合 -> no_signal',
+           by_ref['块1-1']['status'] == 'evaluated' and by_ref['块1-1']['result'] == 'no_signal', '')
+    record('verdict 不适用 -> not_applicable', by_ref['块10-1']['status'] == 'not_applicable', '')
+    record('verdict 待核 -> unverified_basis', by_ref['块12-8']['status'] == 'unverified_basis', '')
+
+    # 12. unverified quote must not become a finding
+    bad_quote = by_ref['块6-13']
+    record('verdict 不符合 without verified quote -> insufficient_input',
+           bad_quote['status'] == 'insufficient_input' and not bad_quote['evidence'], '')
+    record('no finding hangs off the unverified-quote check',
+           not any(f['check_id'] == bad_quote['id'] for f in verdicts['findings']), '')
+
+    # 13. 缺失 与 不符合 各自成疑点，且引擎的「重大」不升 P1
+    kinds = {(f['check_id'], f['kind']) for f in verdicts['findings']}
+    record('verdict 不符合 -> rule_deviation',
+           (by_ref['块9-7']['id'], 'rule_deviation') in kinds, f'kinds={sorted(kinds)}')
+    record('verdict 缺失 -> missing_information',
+           (by_ref['块5-7']['id'], 'missing_information') in kinds, '')
+    record('engine severity never yields P1',
+           all(f['priority'] in {'P2', 'P3'} for f in verdicts['findings']), '')
+
+    # 14. basis cards are unverified anchors, not accepted evidence
+    record('engine clause anchors become unverified bases',
+           len(verdicts['bases']) >= 2 and
+           all(b['authority'] == 'unknown' and b['status'] == 'unknown' for b in verdicts['bases']), '')
+    record('basis level derived from the standard code',
+           {b['level'] for b in verdicts['bases']} == {'sl_t'}, '')
+
+    # 15. missing-item evidence is a search scope, never a fabricated quote
+    missing_check = by_ref['块5-7']
+    record('missing item evidence records the search scope only',
+           missing_check['evidence'][0]['locator'] == '全文（未命中）' and
+           missing_check['evidence'][0]['excerpt'].startswith('检索范围'), '')
+
+    # 16. checklist-audit: 缺失 must reach the ledger (regression guard)
+    audit = import_scan.build_review(audit_payload, ASSETS / 'synthetic-report.txt',
+                                     'checklist-audit', name='合成清单导入', module='M6')
+    got = validate_review.validate(audit, ASSETS, False)
+    record('audit import is structurally valid', not got['errors'], '; '.join(got['errors'][:3]))
+    audit_by_ref = {c['engine_ref'].split(':')[1]: c for c in audit['checks']}
+    record('audit 缺失 becomes a candidate finding', bool(audit['findings']), 'no finding produced')
+    record('audit 缺失 -> P2 missing_information',
+           any(f['kind'] == 'missing_information' and f['priority'] == 'P2' for f in audit['findings']), '')
+    record('audit 部分覆盖 -> P3 low confidence',
+           any(f['priority'] == 'P3' and f['confidence'] == 'low' for f in audit['findings']), '')
+    record('audit 覆盖 -> no_signal',
+           audit_by_ref['块1-1']['status'] == 'evaluated' and
+           audit_by_ref['块1-1']['result'] == 'no_signal', '')
+
     failed = [r for r in results if not r[1]]
     for name, ok, detail in results:
         print(f"  {'PASS' if ok else 'FAIL'}  {name}" + (f'  ({detail})' if detail and not ok else ''))

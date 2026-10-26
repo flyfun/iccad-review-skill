@@ -5,3 +5,7 @@ __pycache__/
 review/
 examples/*.tmp
 .DS_Store
+# 依据库里的标准全文抽取件（约 37 MB，授权边界 + 体积）：本机自用可同步，勿提交
+skills/iccad-review/references/domain-packs/*/references/*_clauses.json
+.ci-out/
+skills/iccad-review/references/domain-packs/*/references/*_clauses_src.txt

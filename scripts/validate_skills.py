@@ -95,6 +95,127 @@ def check_skill(path, names, problems):
     return data
 
 
+def check_links(base_dir, problems, label_prefix=''):
+    """校验一个目录下 md 文件的相对链接是否存在。"""
+    for md in sorted(base_dir.glob('*.md')):
+        text = md.read_text(encoding='utf-8')
+        for match in LINK_RE.finditer(text):
+            target = match.group(1)
+            if target.startswith(('http://', 'https://', 'mailto:', '#')):
+                continue
+            rel = target.split('#')[0]
+            if not rel:
+                continue
+            if not (md.parent / rel).exists():
+                problems.append(f'{label_prefix}{md.name}: broken relative link {target}')
+
+
+CHAPTER_DIRS = ('workflow', 'disciplines')
+
+
+def check_chapters(problems):
+    """章节是单技能的内容层：必须无 frontmatter、被 SKILL.md 与索引同时收录、链接可达。"""
+    refs = SKILLS / 'iccad-review' / 'references'
+    skill_md = SKILLS / 'iccad-review' / 'SKILL.md'
+    if not refs.is_dir():
+        problems.append('iccad-review/references/ missing')
+        return
+    index = refs / 'README.md'
+    if not index.is_file():
+        problems.append('iccad-review/references/README.md missing (chapter index)')
+        index_text = ''
+    else:
+        index_text = index.read_text(encoding='utf-8')
+    routed = skill_md.read_text(encoding='utf-8') if skill_md.is_file() else ''
+
+    chapter_files = []
+    for name in CHAPTER_DIRS:
+        base = refs / name
+        if not base.is_dir():
+            problems.append(f'iccad-review/references/{name}/ missing')
+            continue
+        files = sorted(base.glob('*.md'))
+        if not files:
+            problems.append(f'iccad-review/references/{name}/ holds no chapters')
+        chapter_files.extend(files)
+        check_links(base, problems, label_prefix=f'iccad-review/references/{name}/')
+
+    for path in chapter_files:
+        rel = f'{path.parent.name}/{path.name}'
+        text = path.read_text(encoding='utf-8')
+        if text.startswith('---'):
+            problems.append(f'chapter {rel}: must not carry frontmatter '
+                            '(a YAML block would make it look like a standalone skill)')
+        if rel not in routed:
+            problems.append(f'chapter {rel}: not routed from SKILL.md')
+        if rel not in index_text:
+            problems.append(f'chapter {rel}: missing from references/README.md')
+
+    for stray in refs.rglob('SKILL.md'):
+        problems.append(f'references/{stray.relative_to(refs)}: chapter trees must not carry '
+                        'a SKILL.md (it would be picked up as a separate skill)')
+
+
+def check_domain_packs(problems):
+    """依据库是生成物：清单与磁盘必须一致，且不能让 SKILL.md 混进来。"""
+    base = SKILLS / 'iccad-review' / 'references' / 'domain-packs'
+    if not base.is_dir():
+        problems.append('domain-packs/ missing; run scripts/sync_domain_packs.py')
+        return
+    manifest_path = base / '_manifest.json'
+    if not manifest_path.is_file():
+        problems.append('domain-packs/_manifest.json missing; run scripts/sync_domain_packs.py')
+        return
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    except ValueError as exc:
+        problems.append(f'domain-packs/_manifest.json: invalid JSON ({exc})')
+        return
+
+    packs = manifest.get('packs') or {}
+    if not packs:
+        problems.append('domain-packs/_manifest.json: no packs recorded')
+    on_disk = {p.name for p in base.iterdir() if p.is_dir()}
+    for slug in sorted(set(packs) - on_disk):
+        problems.append(f'domain-packs: manifest lists {slug} but the directory is missing')
+    for slug in sorted(on_disk - set(packs)):
+        problems.append(f'domain-packs: directory {slug} is not in the manifest (stale copy?)')
+
+    for slug, info in sorted(packs.items()):
+        pack_dir = base / slug
+        if not pack_dir.is_dir():
+            continue
+        if not (pack_dir / 'overview.md').is_file():
+            problems.append(f'domain-packs/{slug}: overview.md missing')
+        listed = set(info.get('files') or {})
+        for rel in sorted(listed):
+            if not (pack_dir / rel).is_file():
+                problems.append(f'domain-packs/{slug}/{rel}: recorded in manifest but missing on disk')
+        for path in sorted(pack_dir.rglob('*.md')):
+            rel = path.relative_to(pack_dir).as_posix()
+            if rel not in listed and rel != 'overview.md':
+                problems.append(f'domain-packs/{slug}/{rel}: on disk but not in the manifest')
+        for stray in pack_dir.rglob('SKILL.md'):
+            problems.append(f'domain-packs/{slug}/{stray.name}: generated packs must not carry a SKILL.md '
+                            '(it would be picked up as a separate skill)')
+
+    if manifest.get('engine_version') in (None, ''):
+        problems.append('domain-packs/_manifest.json: engine_version not recorded')
+
+
+def check_assets(problems):
+    """assets 下的 JSON 必须能解析——它们被 self_check 直接读取。"""
+    for skill in sorted(p for p in SKILLS.iterdir() if p.is_dir()):
+        assets = skill / 'assets'
+        if not assets.is_dir():
+            continue
+        for path in sorted(assets.glob('*.json')):
+            try:
+                json.loads(path.read_text(encoding='utf-8'))
+            except ValueError as exc:
+                problems.append(f'{skill.name}/assets/{path.name}: invalid JSON ({exc})')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--quiet', action='store_true')
@@ -129,6 +250,13 @@ def main():
         data = check_skill(path, names, problems)
         if data:
             meta[path.name] = data
+        refs = path / 'references'
+        if refs.is_dir():
+            check_links(refs, problems, label_prefix=f'{path.name}/references/')
+
+    check_domain_packs(problems)
+    check_chapters(problems)
+    check_assets(problems)
 
     for item in catalog:
         name = item.get('name')

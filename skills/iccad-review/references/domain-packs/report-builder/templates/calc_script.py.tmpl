@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""<一句话：这个复算器核什么数值>（{{DOMAIN}}报告审查用）。
+
+【它解决什么】
+    报告给出 <某项数值结论>，本工具按 <规范号 条号/表号> 独立复算/比对，
+    **不采信报告结论**，做"复算值 / 规范限值 / 报告值"三方比对，避免"报告写多少就信多少"。
+
+【依据】
+    <规范号> <条号/表号>：<要求原文摘要>
+
+【用法】
+    python calc_<x>.py --mode <mode1> --<arg> <val> ...
+    python calc_<x>.py --mode <mode2> --report <报告值> ...
+
+【退出码】统一语义（家族约定，勿改）
+    0 = 满足
+    1 = 不满足（含违反强条 / 与报告显著不符）
+    2 = 输入错
+    3 = 仅参考值（公式本体为图片等，不作硬判定）
+
+【判据方向纪律】
+    下限型（安全系数、净空、超高、埋深、防洪标准）→ 用 _check_min
+    上限型（阻水比、应力比、夹角、σmax vs 承载力）→ 用 _check_max
+    **方向判反即为错情**，逐项见 references/<x>-checks.md（若有）。
+"""
+import argparse
+import sys
+
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
+# —— 限值表（来源：<规范号 表X>；判据方向见各行注释）——
+# TODO: 用实测值替换。**不要凭记忆填**，先从 <x>_tables.md 或 spec_lookup 核。
+LIMIT = {
+    # 示例（下限型）：
+    # "1级": 0.95,
+}
+
+
+def _fmt(v, f="%.2f"):
+    return f % v if v is not None else "-"
+
+
+def _check_min(name, val, lim, bad, f="%.2f", note=""):
+    """下限型判据：val 应 ≥ lim。不满足则记入 bad（rc=1）。"""
+    ok = val >= lim
+    print("  %-28s : %s  %s 限值 %s  %s" % (
+        name, _fmt(val, f), "≥" if ok else "★<", _fmt(lim, f),
+        ("满足" if ok else "**不满足**") + ("  " + note if note else "")))
+    if not ok:
+        bad.append("%s = %s < 限值 %s" % (name, _fmt(val, f), _fmt(lim, f)))
+    return ok
+
+
+def _check_max(name, val, lim, bad, f="%.2f", note=""):
+    """上限型判据：val 应 ≤ lim。不满足则记入 bad（rc=1）。"""
+    ok = val <= lim
+    print("  %-28s : %s  %s 限值 %s  %s" % (
+        name, _fmt(val, f), "≤" if ok else "★>", _fmt(lim, f),
+        ("满足" if ok else "**不满足**") + ("  " + note if note else "")))
+    if not ok:
+        bad.append("%s = %s > 限值 %s" % (name, _fmt(val, f), _fmt(lim, f)))
+    return ok
+
+
+def _check_report_min(name, report, lim, bad, f="%.2f"):
+    """报告值口径的下限型比对（报告只给结论值，无中间量时用）。"""
+    return _check_min(name + "(报告值)", report, lim, bad, f)
+
+
+def _check_report_max(name, report, lim, bad, f="%.2f"):
+    """报告值口径的上限型比对。"""
+    return _check_max(name + "(报告值)", report, lim, bad, f)
+
+
+def main():
+    ap = argparse.ArgumentParser(description="{{DOMAIN}}数值复核（<复算器名>）")
+    ap.add_argument("--mode", required=True, choices=["<mode1>", "<mode2>"])
+    # TODO: 按需增参；报告只给最后的结论值时用 --report。
+    ap.add_argument("--report", type=float, default=None, help="[可选] 报告给出的结论值，用于三方比对")
+    ap.add_argument("--tol", type=float, default=None, help="[可选] 允许偏差；仅出提示不置硬判定")
+    args = ap.parse_args()
+
+    bad = []          # 不满足项 → rc=1
+    rc = 0
+
+    if args.mode == "<mode1>":
+        print("=" * 60)
+        print("依据               : <规范号> <条号/表号> <要求摘要>")
+        # TODO: 取输入、算复算值、调 _check_min / _check_max
+        # 例：_check_min("某安全系数", val, LIMIT["1级"], bad)
+        pass
+    elif args.mode == "<mode2>":
+        print("=" * 60)
+        print("依据               : <规范号> <条号/表号>")
+        # TODO
+        pass
+
+    # —— 报告值三方比对（可选）——
+    if args.report is not None:
+        print("-" * 60)
+        print("报告值             : %s" % _fmt(args.report))
+        # TODO: 与复算值比较，偏差超 tol 时给出"须核对"提示；是否置 rc=1 由判据性质决定。
+
+    print("=" * 60)
+    if bad:
+        print("★ 判定：不满足 %d 项 —— %s" % (len(bad), "；".join(bad)))
+        return 1
+    print("判定：满足")
+    return rc
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,90 @@
+{
+  "_note": "合成的引擎判词样本（clause_verdict.py --json 的结构）。全部内容为虚构，只用于验证导入器行为，不代表任何真实报告或工程结论。",
+  "summary": {
+    "total": 6,
+    "by_status": { "符合": 1, "不符合": 2, "缺失": 1, "不适用": 1, "待核": 1 },
+    "quote_verified": 1
+  },
+  "verdicts": [
+    {
+      "item_id": "块1-1",
+      "check_point": "报告类型与目录",
+      "block": "块1 概述与评价依据",
+      "status": "符合",
+      "reason": "报告目次与 B.2 河道类目录一级章 9/9 一致",
+      "spec_code": "SL/T 808-2025",
+      "clause_id": "附录B",
+      "severity": "建议",
+      "citation_verified": true,
+      "quote_verified": false,
+      "method": "toc-match"
+    },
+    {
+      "item_id": "块9-7",
+      "check_point": "法规符合性",
+      "block": "块9 规划符合性与防洪标准",
+      "status": "不符合",
+      "reason": "仅给结论，未逐项对照具体法规条款",
+      "report_quote": "本工程符合法律法规要求。",
+      "spec_code": "SL/T 808-2025",
+      "clause_id": "7.3.4",
+      "severity": "重大",
+      "fix": "逐项对照综合规划、防洪规划目标要求补论证",
+      "citation_verified": true,
+      "quote_verified": true,
+      "method": ""
+    },
+    {
+      "item_id": "块6-13",
+      "check_point": "阻水比复算",
+      "block": "块6 技术要求符合性",
+      "status": "不符合",
+      "reason": "阻水比栏填「/」，该算未算",
+      "report_quote": "",
+      "spec_code": "SL/T 808-2025",
+      "clause_id": "6.4.2",
+      "severity": "一般",
+      "fix": "补算总阻水比与河槽、滩地阻水比",
+      "citation_verified": true,
+      "quote_verified": false,
+      "method": "param-audit"
+    },
+    {
+      "item_id": "块5-7",
+      "check_point": "壅水计算",
+      "block": "块5 洪水影响分析计算",
+      "status": "缺失",
+      "reason": "未给出壅水高度与壅水长度成果",
+      "report_quote": "",
+      "spec_code": "SL/T 808-2025",
+      "clause_id": "6.4.3",
+      "severity": "一般",
+      "fix": "补充壅水高度与长度计算",
+      "citation_verified": true,
+      "quote_verified": false,
+      "method": "param-audit"
+    },
+    {
+      "item_id": "块10-1",
+      "check_point": "蓄滞洪区影响评价",
+      "block": "块10 蓄滞洪区影响评价",
+      "status": "不适用",
+      "reason": "项目不位于蓄滞洪区",
+      "severity": "建议",
+      "citation_verified": false,
+      "quote_verified": false,
+      "method": ""
+    },
+    {
+      "item_id": "块12-8",
+      "check_point": "结论完整性",
+      "block": "块12 措施、结论与附表附图",
+      "status": "待核",
+      "reason": "条文切分后为残句，列举项缺失",
+      "severity": "一般",
+      "citation_verified": false,
+      "quote_verified": false,
+      "method": ""
+    }
+  ]
+}

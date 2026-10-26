@@ -1,0 +1,886 @@
+{
+  "engine_version": "v26.0.0",
+  "packs": {
+    "earth-dam": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "756527784f010f139b17dca5289752d0d59f9a69cd6ec6e28f2d1fd937aadd0b",
+          "source": "skills/earth-dam-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "4f84813463cb5382b385471f48db2c94b16b40daf3233473e08e4cc9cdc339ee",
+          "source": "skills/earth-dam-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "009a05ad4185f43d711d0c4576892356bbdfc31d37c73bfcb7448d030e965ba0",
+          "source": "skills/earth-dam-report-review/references/compulsory-clauses.md"
+        },
+        "references/dam_tables.md": {
+          "rewritten": false,
+          "sha256": "4e2f543db20e9160918a05ae82912b75194d62fbb9ecc76fc8afe1f047cbcc5a",
+          "source": "skills/earth-dam-report-review/references/dam_tables.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "b9b6a8973965c5395a30d780d8722debae4ed31fa878598310df04adea9d34fc",
+          "source": "skills/earth-dam-report-review/references/error-patterns.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "2cf931301c134cb20e4970720e2c796512276da8f3f7eae0f8f133d2734006d7",
+          "source": "skills/earth-dam-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "978e33cb3f61d94e5269fe6b7ee6a3528a6294e67b5b2b1c5f517db4412de973",
+          "source": "skills/earth-dam-report-review/references/norms.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "1f30db238224f0b8481218f4765466642f5109e3f5b706599ee5e45da45b27a1",
+          "source": "skills/earth-dam-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_dam_crest.py": {
+          "rewritten": false,
+          "sha256": "adaae6e47ddc6a66d343aceb991190c42c1c54d38fd344569b33b63ace718e6f",
+          "source": "skills/earth-dam-report-review/scripts/calc_dam_crest.py"
+        },
+        "scripts/calc_dam_slope.py": {
+          "rewritten": false,
+          "sha256": "6f1b223b4655e24a05c348fad80c04658d82a6ab88ac6dc891a3cfd1f5e97152",
+          "source": "skills/earth-dam-report-review/scripts/calc_dam_slope.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "2dd8dfeb2256ef3d14773c38f3e9cbdc18deae1d24885a939e460492a27e41f3",
+          "source": "skills/earth-dam-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "earth-dam-report-review"
+    },
+    "flood-impact": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "11c4697f96f2475d82dba5ba1e9e49c0fd1c2eb934b1ff71e3a0b899b93e17c9",
+          "source": "skills/flood-impact-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "db0c264bf3ba3a54d0f6a5e8073bcbd7abc91cc0be747962ce245c4a2a16f738",
+          "source": "skills/flood-impact-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "c9a4c548da8f0c940e14e72506a55ae6cbcdaad9494c4a3226790c6b8da21adb",
+          "source": "skills/flood-impact-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "3118ca52934fad4c235cbe32bfb1275d345944a6e795c30e5d8e4453e0a0a4e9",
+          "source": "skills/flood-impact-report-review/references/error-patterns.md"
+        },
+        "references/flood_tables.md": {
+          "rewritten": false,
+          "sha256": "db1676bb0db8f587cbfc0f85b89898c0c4f08355ea5f25c407ab2c3b41d0fb86",
+          "source": "skills/flood-impact-report-review/references/flood_tables.md"
+        },
+        "references/flood_works_tables.md": {
+          "rewritten": false,
+          "sha256": "716520ba727f9957d72012fa1cf834f5fb3fadb4fee2f59025daa8007ed83065",
+          "source": "skills/flood-impact-report-review/references/flood_works_tables.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "3e760dac7396ba25ca59d301922c776da04169b400157bcf92503e9cee1d3324",
+          "source": "skills/flood-impact-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "448f5e5cddbf40318d439fd2a0574b6524038043880822112816494484aca1db",
+          "source": "skills/flood-impact-report-review/references/norms.md"
+        },
+        "references/numeric-checks.md": {
+          "rewritten": false,
+          "sha256": "ca5e39895f243909353570b915170ea8307579346196b642db29ff9d7507c34d",
+          "source": "skills/flood-impact-report-review/references/numeric-checks.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "c6c2515685a7d98f961070dacf71b4b7138b020d3cd44b5a3cd9bf5c390dc74d",
+          "source": "skills/flood-impact-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_backwater.py": {
+          "rewritten": false,
+          "sha256": "e08ed1714dc06effa2431d85442f63643dfc185e081ea687b4621c0f42f5b453",
+          "source": "skills/flood-impact-report-review/scripts/calc_backwater.py"
+        },
+        "scripts/calc_blockage.py": {
+          "rewritten": false,
+          "sha256": "29c10ec2f6aea33f48933eb765c5f0c48ceeba7dcf60481fd308b4eda322ce97",
+          "source": "skills/flood-impact-report-review/scripts/calc_blockage.py"
+        },
+        "scripts/calc_bridge.py": {
+          "rewritten": false,
+          "sha256": "4b758ec40cd2c625940039523e09d35ddcae675cce7e5f8c260c527fb6dd25b9",
+          "source": "skills/flood-impact-report-review/scripts/calc_bridge.py"
+        },
+        "scripts/calc_clearance.py": {
+          "rewritten": false,
+          "sha256": "c7e01dabd092fa93b8715de91b563a88c2180d0b56929bd810f21fea8784957d",
+          "source": "skills/flood-impact-report-review/scripts/calc_clearance.py"
+        },
+        "scripts/calc_flood_std.py": {
+          "rewritten": false,
+          "sha256": "dd12453f995bdb0d808380fa0b5afce36e959410fa647b00110c71712b20a6ec",
+          "source": "skills/flood-impact-report-review/scripts/calc_flood_std.py"
+        },
+        "scripts/calc_geometry.py": {
+          "rewritten": false,
+          "sha256": "43fc6bad8c36af3d6d98e278596854cf3bcca65e8d53daa5ad9a50276ea7d263",
+          "source": "skills/flood-impact-report-review/scripts/calc_geometry.py"
+        },
+        "scripts/calc_impact_area.py": {
+          "rewritten": false,
+          "sha256": "6fa19584c63aef72a3658281bdcc86bf5f27565b25cb0fdc1c6f7850380188aa",
+          "source": "skills/flood-impact-report-review/scripts/calc_impact_area.py"
+        },
+        "scripts/calc_scour.py": {
+          "rewritten": false,
+          "sha256": "ed5315edca0e035a89721c25a4265ef76a1e460f373291d8e9b313a17f2fe322",
+          "source": "skills/flood-impact-report-review/scripts/calc_scour.py"
+        },
+        "scripts/calc_stability.py": {
+          "rewritten": false,
+          "sha256": "018621b8942f46e57feee7c0633d1483bf322d987c9be56fd075c562288b5d5c",
+          "source": "skills/flood-impact-report-review/scripts/calc_stability.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/flood-impact-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "a5dba557bd1fee1bd309db62b191830daaed2d7503ada86cb7e8b1b341ba21d0",
+          "source": "skills/flood-impact-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "flood-impact-report-review"
+    },
+    "gravity-dam": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "bbb513eaede4551e9b69037b776ea6159f29eb984a76cb9efd0edfa52fff1b6c",
+          "source": "skills/gravity-dam-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "83c5356f0c44a4fedbf710604feb153c7189ae295460a79d390e66db262d39ee",
+          "source": "skills/gravity-dam-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "8a6433758958bb0d891914707ce83abf80052b79439b813f390c80eba2656cde",
+          "source": "skills/gravity-dam-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "2668d06164e8118cbe17d1c8c345dbcd0e2c3d974b26401a79c7c9e0d5fd86ed",
+          "source": "skills/gravity-dam-report-review/references/error-patterns.md"
+        },
+        "references/gd_tables.md": {
+          "rewritten": false,
+          "sha256": "2af84e44ca1bc03f5ef34d5ae1a888d20345f8f1de39413b203f30463ba3f24b",
+          "source": "skills/gravity-dam-report-review/references/gd_tables.md"
+        },
+        "references/gd_works_tables.md": {
+          "rewritten": false,
+          "sha256": "31abe1ad4786958f9aaaa35ef851333ba2489e1c98885cc0965a3663918b9777",
+          "source": "skills/gravity-dam-report-review/references/gd_works_tables.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "70249d28af3d19b98131ee607196509fa6b548174c28a8db7cf0ec8e06d95c4a",
+          "source": "skills/gravity-dam-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "5dfc2343290ae096cad27390bd464d12fc9a7e6af83c77a4c7a5b9de5e27a4d0",
+          "source": "skills/gravity-dam-report-review/references/norms.md"
+        },
+        "references/numeric-checks.md": {
+          "rewritten": false,
+          "sha256": "24879922b849266d99088d4104ee88e07057d2905e6148356a1bd0cce55b1b81",
+          "source": "skills/gravity-dam-report-review/references/numeric-checks.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "464f24d46eedf7a980dce7f76cf3a03339fd4ebf75f312fdde12d8ab90850111",
+          "source": "skills/gravity-dam-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_dam_crest.py": {
+          "rewritten": false,
+          "sha256": "f25c0bc415391e3b5943caa2f555c6c0edf11e679cc96ca97df88c04e9f00eea",
+          "source": "skills/gravity-dam-report-review/scripts/calc_dam_crest.py"
+        },
+        "scripts/calc_dam_seepage.py": {
+          "rewritten": false,
+          "sha256": "50e50342b3d2b3274ccd21772481df2f0c3e372c14af1b85809c84f7ab062c52",
+          "source": "skills/gravity-dam-report-review/scripts/calc_dam_seepage.py"
+        },
+        "scripts/calc_dam_stability.py": {
+          "rewritten": false,
+          "sha256": "18c4c2ed0c3517cd4ab0929965eb4e119249c24fe1e55fbd5053091e3b9e7e8f",
+          "source": "skills/gravity-dam-report-review/scripts/calc_dam_stability.py"
+        },
+        "scripts/calc_dam_stress.py": {
+          "rewritten": false,
+          "sha256": "fcb5592e092ebbe22fc848d340a2742d1232b3797cfc27156aea775e920206fb",
+          "source": "skills/gravity-dam-report-review/scripts/calc_dam_stress.py"
+        },
+        "scripts/deliver.py": {
+          "rewritten": false,
+          "sha256": "71a8013ff6b86256a3e24a8bea114b42e880011a6f269a344fa8682fe3811481",
+          "source": "skills/gravity-dam-report-review/scripts/deliver.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/gravity-dam-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "f62a8fd38e744ab832532e2c92e6cdcae3aa1f3d76f16b8992e133883738d13e",
+          "source": "skills/gravity-dam-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "gravity-dam-report-review"
+    },
+    "port-waterway": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "8c3586cb4953127ba67d06cb95e2e5e59a3d9fbc3228204ae48087ab39ea3773",
+          "source": "skills/port-waterway-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "f97c4f5a484ccfe6b281dffdc6164ef919702e61dd5d6a11abb287c4cfd6cceb",
+          "source": "skills/port-waterway-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "6f31bd5c895b118b9f8f166341f8ef39a167365c7643f19605cd6a82f575a27a",
+          "source": "skills/port-waterway-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "ba70eeaa4a1427095889fc0adef1a5962a54606660194b17b4c40f14462a465e",
+          "source": "skills/port-waterway-report-review/references/error-patterns.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "b721e90af1d929d8222e18b66d9000297188b615435477fdc8512b34f780574a",
+          "source": "skills/port-waterway-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "b706b5c1e7c4301699a2ccb6a3e0195a51af4746e95c192037ebb528cf960e6a",
+          "source": "skills/port-waterway-report-review/references/norms.md"
+        },
+        "references/numeric-checks.md": {
+          "rewritten": false,
+          "sha256": "8a36025ec34211f3a4224c5fe7d8da9f70e07cfb5b0120993aabf72d3f8e9cb1",
+          "source": "skills/port-waterway-report-review/references/numeric-checks.md"
+        },
+        "references/pw_tables.md": {
+          "rewritten": false,
+          "sha256": "2116b27ed9a129ac1c379c52e482ec32894f45f769701f8f444a698d667a7664",
+          "source": "skills/port-waterway-report-review/references/pw_tables.md"
+        },
+        "references/pw_works_tables.md": {
+          "rewritten": false,
+          "sha256": "c70cb818c455024ee05d2a1811a28bd1096a7c40c42a1b5375c7c7c65f6797ec",
+          "source": "skills/port-waterway-report-review/references/pw_works_tables.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "b7e570fa186bd6314a35ff1c7ea21c1f7f3b3fab45daacd705f58fc7b63f5601",
+          "source": "skills/port-waterway-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_breakwater.py": {
+          "rewritten": false,
+          "sha256": "b77ed5971265b266298da778aa573e7228a8ff3b42f922093eb84479ce4b093f",
+          "source": "skills/port-waterway-report-review/scripts/calc_breakwater.py"
+        },
+        "scripts/calc_channel_depth.py": {
+          "rewritten": false,
+          "sha256": "99992d9ac11b829daecb64a4f12b4144cd8d67db26d4ebf11ee2ba369ed43ae5",
+          "source": "skills/port-waterway-report-review/scripts/calc_channel_depth.py"
+        },
+        "scripts/calc_pile_capacity.py": {
+          "rewritten": false,
+          "sha256": "324c43416b60e41adc1950d355c2af3344151aa000f0c26e1b739dc4cfbaf553",
+          "source": "skills/port-waterway-report-review/scripts/calc_pile_capacity.py"
+        },
+        "scripts/calc_ship_loads.py": {
+          "rewritten": false,
+          "sha256": "24f02c442b10e01304445a0a242cfbe64aef2ace9779fcc98fdc7c47c3838b32",
+          "source": "skills/port-waterway-report-review/scripts/calc_ship_loads.py"
+        },
+        "scripts/calc_wharf_elevation.py": {
+          "rewritten": false,
+          "sha256": "0b45d894c3131ddf27549ba9d2f0f4a4b39ec4cc266ecf14b2eaedf8b7124271",
+          "source": "skills/port-waterway-report-review/scripts/calc_wharf_elevation.py"
+        },
+        "scripts/calc_wharf_stability.py": {
+          "rewritten": false,
+          "sha256": "60dd6204f4f0ab4f5f663c73e616b95f6d16128de10cd9c775e833837376ee16",
+          "source": "skills/port-waterway-report-review/scripts/calc_wharf_stability.py"
+        },
+        "scripts/deliver.py": {
+          "rewritten": false,
+          "sha256": "71a8013ff6b86256a3e24a8bea114b42e880011a6f269a344fa8682fe3811481",
+          "source": "skills/port-waterway-report-review/scripts/deliver.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/port-waterway-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "fc9daef21f9a36d468295ed273d1ab745538116b4a9cbdc507c7fc783c844713",
+          "source": "skills/port-waterway-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "port-waterway-report-review"
+    },
+    "pump-station": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "b3ba37f491a7392dc5037646a071520f7943a770b3c053ed0a997cdb6c8ad6fa",
+          "source": "skills/pump-station-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "4800f2c3898706855cd95375c602c8d67fea28a11b2496f16074cbd90bd13e2d",
+          "source": "skills/pump-station-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "9d0cb8d532b669ddbef9c91d4b984d97a3e442820334017b00d0242054416223",
+          "source": "skills/pump-station-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "93bd98bc80bda992650f1ddd371d30ebf16be1c01058022d365e477556849693",
+          "source": "skills/pump-station-report-review/references/error-patterns.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "8dc1d7bd89b80982e0cb41695f35fa1cc652cb267f777a5af99be5208e698b8f",
+          "source": "skills/pump-station-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "d90aa3ed8c037696e0759265269339c282ee16b477d12aaa5b22b79d68d63e59",
+          "source": "skills/pump-station-report-review/references/norms.md"
+        },
+        "references/numeric-checks.md": {
+          "rewritten": false,
+          "sha256": "c65d7ab8337a837a44f2790e7eec9145d7770f8c14bdf64d132a61cccaf156bb",
+          "source": "skills/pump-station-report-review/references/numeric-checks.md"
+        },
+        "references/ps_tables.md": {
+          "rewritten": false,
+          "sha256": "4ad070c541a6e8bebfc63973da9fa796a95d6723039c6ab8d7852c0efb7bf610",
+          "source": "skills/pump-station-report-review/references/ps_tables.md"
+        },
+        "references/ps_works_tables.md": {
+          "rewritten": false,
+          "sha256": "d79951d8b6a4ea55a8751e864e2c907574476f3e3245a41206ba21c181b079d8",
+          "source": "skills/pump-station-report-review/references/ps_works_tables.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "573d820337adc4c2a57deb28e541b3d50cdf4ec64ef50628270b52970c14369c",
+          "source": "skills/pump-station-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_pump_elevation.py": {
+          "rewritten": false,
+          "sha256": "f71ee8c29acf0c6db0061ae9ff4cdc100beee759959e75608bb2f48a4539eb74",
+          "source": "skills/pump-station-report-review/scripts/calc_pump_elevation.py"
+        },
+        "scripts/calc_pump_std.py": {
+          "rewritten": false,
+          "sha256": "20e56f443dad15cf5acbb4828f9fc18fb870add22103130fb79d36626f8a11cf",
+          "source": "skills/pump-station-report-review/scripts/calc_pump_std.py"
+        },
+        "scripts/calc_stability.py": {
+          "rewritten": false,
+          "sha256": "1ffe4c0340fb6d899a8c0fa2335b14e7e8518abd38acd90c30b2396a78998db8",
+          "source": "skills/pump-station-report-review/scripts/calc_stability.py"
+        },
+        "scripts/calc_water_levels.py": {
+          "rewritten": false,
+          "sha256": "43397ce9dc907b3b36222c5c647d11a19cd803de853dc360fd03c9451ed1dc7a",
+          "source": "skills/pump-station-report-review/scripts/calc_water_levels.py"
+        },
+        "scripts/deliver.py": {
+          "rewritten": false,
+          "sha256": "71a8013ff6b86256a3e24a8bea114b42e880011a6f269a344fa8682fe3811481",
+          "source": "skills/pump-station-report-review/scripts/deliver.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/pump-station-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "7b26dccc63bdd99ac0c0006e0484538584584326e96dc9e6fe1159d4c2959e08",
+          "source": "skills/pump-station-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "pump-station-report-review"
+    },
+    "report-builder": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "4662b853912d59e65d6bb334e71a24d2d3d6f469e8755a937e8e420bad99c192",
+          "source": "skills/hydro-report-review-builder/SKILL.md"
+        },
+        "references/build-clauses-guide.md": {
+          "rewritten": false,
+          "sha256": "1899d2430d7e2ed8d892587b42d648b73f13ef638556a384d2edb2f9de0bf886",
+          "source": "skills/hydro-report-review-builder/references/build-clauses-guide.md"
+        },
+        "references/calc-conventions.md": {
+          "rewritten": false,
+          "sha256": "fb7a4702daca776e3bce8d3ba2621af2e140290ab0049dc2a00ba0a7b90b2ea2",
+          "source": "skills/hydro-report-review-builder/references/calc-conventions.md"
+        },
+        "references/delivery-checklist.md": {
+          "rewritten": false,
+          "sha256": "db7a85b0302fd2b9bebad14a40e19e138f1a7e86b19ff16446581d0be95a5584",
+          "source": "skills/hydro-report-review-builder/references/delivery-checklist.md"
+        },
+        "references/family-spec.md": {
+          "rewritten": false,
+          "sha256": "46311bfb8bd3c4b05891c7bad480e163ea01a986b9461908a802dce251253017",
+          "source": "skills/hydro-report-review-builder/references/family-spec.md"
+        },
+        "references/pitfalls.md": {
+          "rewritten": false,
+          "sha256": "f55ed7773ff43ce81deb690978f254d1d69af0241a038b5620b3569fa491f3ff",
+          "source": "skills/hydro-report-review-builder/references/pitfalls.md"
+        },
+        "scripts/deliver.py": {
+          "rewritten": false,
+          "sha256": "71a8013ff6b86256a3e24a8bea114b42e880011a6f269a344fa8682fe3811481",
+          "source": "skills/hydro-report-review-builder/scripts/deliver.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/hydro-report-review-builder/scripts/extract_docx_tables.py"
+        },
+        "scripts/skeleton.py": {
+          "rewritten": false,
+          "sha256": "a624451033cc972f5451247f1f4f929fb9d1dfb8250fea022a8ee38b14599692",
+          "source": "skills/hydro-report-review-builder/scripts/skeleton.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "3f3f978baf41958b3b0ead98c6de8dd1e68737236a40977c9c8e530559a41cdb",
+          "source": "skills/hydro-report-review-builder/scripts/spec_lookup.py"
+        },
+        "templates/SKILL.md.tmpl": {
+          "rewritten": false,
+          "sha256": "22aa9aaf760224aeac9f0bf8542644b090af7c8ae780e2559e8ea355b33d38ce",
+          "source": "skills/hydro-report-review-builder/templates/SKILL.md.tmpl"
+        },
+        "templates/build_clauses.py.tmpl": {
+          "rewritten": false,
+          "sha256": "cf46c9f00bbec500f770388261c7fc67f57c9c22478b60766951099e92c18e06",
+          "source": "skills/hydro-report-review-builder/templates/build_clauses.py.tmpl"
+        },
+        "templates/calc_script.py.tmpl": {
+          "rewritten": false,
+          "sha256": "2385f7bfbaece0d338dfedefd35d518a4a37d96a89d9af6b6b2cb6708dfc6aee",
+          "source": "skills/hydro-report-review-builder/templates/calc_script.py.tmpl"
+        },
+        "templates/checklist.md.tmpl": {
+          "rewritten": false,
+          "sha256": "bbd1df3df39112fb115eb176bf20686406cb4ee3ce71473acea5c82be99d70cd",
+          "source": "skills/hydro-report-review-builder/templates/checklist.md.tmpl"
+        },
+        "templates/compulsory-clauses.md.tmpl": {
+          "rewritten": false,
+          "sha256": "4adfa36c8219e2aebbe06c2e2f83df6d9dae43747395022027e573d3f0953afc",
+          "source": "skills/hydro-report-review-builder/templates/compulsory-clauses.md.tmpl"
+        },
+        "templates/error-patterns.md.tmpl": {
+          "rewritten": false,
+          "sha256": "6c119a0485823d53a42aca95aa8a5dd197fedd0e50ca5a3f7ba9a5ea4c208939",
+          "source": "skills/hydro-report-review-builder/templates/error-patterns.md.tmpl"
+        },
+        "templates/limits.md.tmpl": {
+          "rewritten": false,
+          "sha256": "a429a1bc6912840cdb3c38f69813559ac099417d7337410bcf2e926d752ee6f7",
+          "source": "skills/hydro-report-review-builder/templates/limits.md.tmpl"
+        },
+        "templates/norms.md.tmpl": {
+          "rewritten": false,
+          "sha256": "838c52efda55bfb9ce3c69e98a1ebfc713da3749c9e82cad4f5d023db82889f2",
+          "source": "skills/hydro-report-review-builder/templates/norms.md.tmpl"
+        },
+        "templates/skill-meta.yaml.tmpl": {
+          "rewritten": false,
+          "sha256": "01660d9ecc427cbc436ae962eceba6d36ad0751a21bc17c61aa142d62ddc2b58",
+          "source": "skills/hydro-report-review-builder/templates/skill-meta.yaml.tmpl"
+        },
+        "templates/tables.md.tmpl": {
+          "rewritten": false,
+          "sha256": "d0030661cf076469951d0893769764b6ce9f9c43f97473b9be905807f1873506",
+          "source": "skills/hydro-report-review-builder/templates/tables.md.tmpl"
+        },
+        "templates/works_tables.md.tmpl": {
+          "rewritten": false,
+          "sha256": "781be373643f460a8087a2f4aee965cc96cae3e6fd4f3616b32605b1e0cedf6c",
+          "source": "skills/hydro-report-review-builder/templates/works_tables.md.tmpl"
+        }
+      },
+      "source_skill": "hydro-report-review-builder"
+    },
+    "river-channel": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "f7fa51e130c89310556c2cea2a38538079eb3817d06adcd2e0bc047b70ba6aae",
+          "source": "skills/river-channel-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "e8ad6481022301e9593eaa612651c54d2a92365cc5f51e8eec93d35b637a0895",
+          "source": "skills/river-channel-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "f2f4ca09eb42bbefb28a2d4bdcb136b3a9ef038c92333f4012a597aae7342626",
+          "source": "skills/river-channel-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "4abf8f912bd7d585b51cb2ac52e4a40245cd62fad7db12404078ebf8905baaf9",
+          "source": "skills/river-channel-report-review/references/error-patterns.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "58ea8a7cd66f7ae7c542ce30a69a80934133c1e037e07b4be05f54e76055a341",
+          "source": "skills/river-channel-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "1a1f09b7e24b39c85e9dc9950de4013595336c5f40d696b827072f80e07ac5e5",
+          "source": "skills/river-channel-report-review/references/norms.md"
+        },
+        "references/rc_tables.md": {
+          "rewritten": false,
+          "sha256": "62a4807d2ff3c2d590eab58c4406c1895b37568578ce5a36e6ac4b402465be16",
+          "source": "skills/river-channel-report-review/references/rc_tables.md"
+        },
+        "references/rc_works_tables.md": {
+          "rewritten": false,
+          "sha256": "7338c6f4f9fa32d47eb6075bc9321e20cda20e3293be0365b778043e2e16b565",
+          "source": "skills/river-channel-report-review/references/rc_works_tables.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "2c6900db067c7cafbb13002adf271672f35662af085b5f93485f2cdd8d7a95dd",
+          "source": "skills/river-channel-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_channel_capacity.py": {
+          "rewritten": false,
+          "sha256": "468954506eabd4f63dd61140c7147f95db9343c5e41102e7a9e2eafd678d9588",
+          "source": "skills/river-channel-report-review/scripts/calc_channel_capacity.py"
+        },
+        "scripts/calc_dredge.py": {
+          "rewritten": false,
+          "sha256": "798e402044446518b3ad8b597172aea57875980b4000abeaced3b10cad44e4d3",
+          "source": "skills/river-channel-report-review/scripts/calc_dredge.py"
+        },
+        "scripts/calc_levee_crest.py": {
+          "rewritten": false,
+          "sha256": "1c0c972177cdd24522f52a97c8d19d8f539af390c49a55dce2a3c6fdf74b8c9a",
+          "source": "skills/river-channel-report-review/scripts/calc_levee_crest.py"
+        },
+        "scripts/calc_revetment.py": {
+          "rewritten": false,
+          "sha256": "a4daa122d9518c37c55db41d9209e61c0e103036cd4b3ca92b5ca5e2f0ff8a77",
+          "source": "skills/river-channel-report-review/scripts/calc_revetment.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/river-channel-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "b06bef4894ee713dc58b909f7ffc699e66e42ab3e6be0806d5030a48002c42ed",
+          "source": "skills/river-channel-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "river-channel-report-review"
+    },
+    "sluice": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "75a85202964b3e259f80f87991373d54d1ad44afa6eced4f370e1aba0f3af43b",
+          "source": "skills/sluice-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "9a2732fc1a8597b1febd6fc7bf0054c13d9fe9374650b34da4155e27e89f82d5",
+          "source": "skills/sluice-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "091dc28250f331ec3cbc82f3d5a7ab9eedfa4d948091872c518e8741e2a2cb20",
+          "source": "skills/sluice-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "a9b33ccf847b583dd9f327baa43bc715f58bcba4850bd6ad49db62c90ef31fa5",
+          "source": "skills/sluice-report-review/references/error-patterns.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "6060ac86537fe7bd7c978c5b10dec4a052a3f168c6e807ff5d4db41ba5772538",
+          "source": "skills/sluice-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "b1e90e250db30aed0913ad2a13201b5989274c10920a6585c68e6bc7d24efdf0",
+          "source": "skills/sluice-report-review/references/norms.md"
+        },
+        "references/sluice_tables.md": {
+          "rewritten": false,
+          "sha256": "874e302c0faa8cddfc61eb1f06786c9a2c4ffc143ca3c8d3eafa510ab270618d",
+          "source": "skills/sluice-report-review/references/sluice_tables.md"
+        },
+        "scripts/calc_crest.py": {
+          "rewritten": false,
+          "sha256": "db7f63d12bd81421e47d713a7f1694d8ba8b05a60fa1378ff441c194fecae1c1",
+          "source": "skills/sluice-report-review/scripts/calc_crest.py"
+        },
+        "scripts/calc_discharge.py": {
+          "rewritten": false,
+          "sha256": "97e0953208e2f902074c3f110e3f05abfa53867f454e590199acd4e5703ef338",
+          "source": "skills/sluice-report-review/scripts/calc_discharge.py"
+        },
+        "scripts/calc_hydraulics.py": {
+          "rewritten": false,
+          "sha256": "dce36c53eb1c456869f6d879dd4568a4b9762f17c9fa1bb6654366e81167a510",
+          "source": "skills/sluice-report-review/scripts/calc_hydraulics.py"
+        },
+        "scripts/calc_stability.py": {
+          "rewritten": false,
+          "sha256": "35c176e5ece34da2e766550addd2b5dbcf304356df60ef8b5a9cb2294ca568ff",
+          "source": "skills/sluice-report-review/scripts/calc_stability.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "aff69458dbd7997cddfbe0b8944bdf097f7b5fde8b733ff8426cd51769969e3f",
+          "source": "skills/sluice-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "sluice-report-review"
+    },
+    "soil-conservation": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "91eb346241ed646b3f55821ad881234449adec8c0660412a310dd9fa8fc5c736",
+          "source": "skills/soil-conservation-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "dd1fabe0b92d3c23bd6513385e6bd55164ee7b254e677039786ddaaf03e702dd",
+          "source": "skills/soil-conservation-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "09e3b7f4b0cd79708802db3d27dbecc2e90a6c49f67ba444880d954ddd9abfde",
+          "source": "skills/soil-conservation-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "bbbf6217d7cf7a238f5b1c1197ceb362df6a142cba0cc539cb1d03c1c065cb33",
+          "source": "skills/soil-conservation-report-review/references/error-patterns.md"
+        },
+        "references/industry-region.md": {
+          "rewritten": false,
+          "sha256": "208ba5f45d09ce54fd1dd20efccf000a1b7b3ebd447b74bcf7af180a4c190e5d",
+          "source": "skills/soil-conservation-report-review/references/industry-region.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "a4ea8d3493341505a6f71d81ed84cad44b9a4decdc0bccff03cec65228989793",
+          "source": "skills/soil-conservation-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "7ed7ba8f3995fecb3fcec9975e58a79a4473b647076009d7d3490cf3547e5f63",
+          "source": "skills/soil-conservation-report-review/references/norms.md"
+        },
+        "references/swc_tables.md": {
+          "rewritten": false,
+          "sha256": "ab62b4b47a640f928eebfd728360f186e24ee252b2debc5b5e82ca32d9853b14",
+          "source": "skills/soil-conservation-report-review/references/swc_tables.md"
+        },
+        "references/swc_works_tables.md": {
+          "rewritten": false,
+          "sha256": "e1503c7967c878d7177f7816b7f119c1b4b44b54662edfed4733e83ed756f5ae",
+          "source": "skills/soil-conservation-report-review/references/swc_works_tables.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "ba3a9f36ed8c9ce14086ee993693d47135ce725a4cfa5b48eb709373fbeeef4a",
+          "source": "skills/soil-conservation-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_drainage.py": {
+          "rewritten": false,
+          "sha256": "64287285949a808eb53f97922efb5a709ca49eaf45b423608e07480e91d69f0f",
+          "source": "skills/soil-conservation-report-review/scripts/calc_drainage.py"
+        },
+        "scripts/calc_dregs.py": {
+          "rewritten": false,
+          "sha256": "fcbc375884457482e85548ef09d56804819300d3e04832eaff5b419d322c41e8",
+          "source": "skills/soil-conservation-report-review/scripts/calc_dregs.py"
+        },
+        "scripts/calc_soil_loss.py": {
+          "rewritten": false,
+          "sha256": "fcd90345f924d8cb2a4ab0b03ef0842c832ceca09c59afc3c80f072a2d46d1ef",
+          "source": "skills/soil-conservation-report-review/scripts/calc_soil_loss.py"
+        },
+        "scripts/calc_swc_targets.py": {
+          "rewritten": false,
+          "sha256": "f5cd12d3930d2ed6b2ba3fadfef19fb6205cec02849a18cb5ed321b6c05aed0b",
+          "source": "skills/soil-conservation-report-review/scripts/calc_swc_targets.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/soil-conservation-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "adc946a2c511ae0a9b98221757c0682a3f46060fae13961bdc3f45e22aa4d44d",
+          "source": "skills/soil-conservation-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "soil-conservation-report-review"
+    },
+    "water-resources": {
+      "files": {
+        "overview.md": {
+          "rewritten": true,
+          "sha256": "4e942ff1ee832b2e464fbf52aacfc1bc03215d09e27dbf0f756bfceb461dcc0f",
+          "source": "skills/water-resources-report-review/SKILL.md"
+        },
+        "references/checklist.md": {
+          "rewritten": false,
+          "sha256": "0ab4a96e7bb681cca19ba3f0447d5b1d71c5587b94c532e91033adfeb4fbf54b",
+          "source": "skills/water-resources-report-review/references/checklist.md"
+        },
+        "references/compulsory-clauses.md": {
+          "rewritten": false,
+          "sha256": "295df7e1c68a6114ba404c8462dfaac9a25a8eda33cc08802792de4ce01977c3",
+          "source": "skills/water-resources-report-review/references/compulsory-clauses.md"
+        },
+        "references/error-patterns.md": {
+          "rewritten": false,
+          "sha256": "cb54e3c3f76c5f3b7b2cbd3bdd645279d3306ed18a509bbbfa49e1e057f641e4",
+          "source": "skills/water-resources-report-review/references/error-patterns.md"
+        },
+        "references/limits.md": {
+          "rewritten": false,
+          "sha256": "bcd4ce0edd29cf392586f1b7974c7307c5f57737d1703e2142cc99407f65cc19",
+          "source": "skills/water-resources-report-review/references/limits.md"
+        },
+        "references/norms.md": {
+          "rewritten": false,
+          "sha256": "89e88c3f1c33531b5f5ef819939b3eae7d0db215ed9b38d5a2ac090a5707392d",
+          "source": "skills/water-resources-report-review/references/norms.md"
+        },
+        "references/numeric-checks.md": {
+          "rewritten": false,
+          "sha256": "39ccf25de834187f550b0c55bea3d2f94d5628d81225d33594da0e50c8416933",
+          "source": "skills/water-resources-report-review/references/numeric-checks.md"
+        },
+        "references/wr_tables.md": {
+          "rewritten": false,
+          "sha256": "e51c766f1c6e00c30a5b16624d6fbbfb0e7a0c88e4aca66827cf45c47e67db27",
+          "source": "skills/water-resources-report-review/references/wr_tables.md"
+        },
+        "references/wr_works_tables.md": {
+          "rewritten": false,
+          "sha256": "b2b3c42d95964a12efe20d1736f9207bfcf99ed688a9b54cd32196dc1a54fa71",
+          "source": "skills/water-resources-report-review/references/wr_works_tables.md"
+        },
+        "scripts/build_clauses.py": {
+          "rewritten": false,
+          "sha256": "f3532be5de9304dd311b9c003847a53e689f1380a7dd2953a0e071de72d69052",
+          "source": "skills/water-resources-report-review/scripts/build_clauses.py"
+        },
+        "scripts/calc_demand_supply.py": {
+          "rewritten": false,
+          "sha256": "51b6d53f2aadd2b1b2e02344749e5d2803958c909d0642534f8a569724883a2c",
+          "source": "skills/water-resources-report-review/scripts/calc_demand_supply.py"
+        },
+        "scripts/calc_water_balance.py": {
+          "rewritten": false,
+          "sha256": "5b5f680ea556d59b82169f12eaa0423b68f15391cb555bf8c70f1b1228e9fe01",
+          "source": "skills/water-resources-report-review/scripts/calc_water_balance.py"
+        },
+        "scripts/calc_water_resources.py": {
+          "rewritten": false,
+          "sha256": "991b2a2e06bef9d9f2de8aed564fea437f966c93e3a595bc2704cb1413bb0791",
+          "source": "skills/water-resources-report-review/scripts/calc_water_resources.py"
+        },
+        "scripts/calc_withdrawal_std.py": {
+          "rewritten": false,
+          "sha256": "978fb22ad2c2c4f6ddf3d6508d08d02217010f3332b140e3d728fd1e87418043",
+          "source": "skills/water-resources-report-review/scripts/calc_withdrawal_std.py"
+        },
+        "scripts/deliver.py": {
+          "rewritten": false,
+          "sha256": "71a8013ff6b86256a3e24a8bea114b42e880011a6f269a344fa8682fe3811481",
+          "source": "skills/water-resources-report-review/scripts/deliver.py"
+        },
+        "scripts/extract_docx_tables.py": {
+          "rewritten": false,
+          "sha256": "36ee9082b1bb192a54dbc30550f7e79d79e51c95dae100bf46daf15e70ca1808",
+          "source": "skills/water-resources-report-review/scripts/extract_docx_tables.py"
+        },
+        "scripts/spec_lookup.py": {
+          "rewritten": false,
+          "sha256": "41a13525f7e6c79f87a7e65cd0b674f122aa303f0f4938813bb19a2307286bc7",
+          "source": "skills/water-resources-report-review/scripts/spec_lookup.py"
+        }
+      },
+      "source_skill": "water-resources-report-review"
+    }
+  },
+  "synced_at": "2026-10-26 15:14"
+}

@@ -21,6 +21,14 @@ HERE = Path(__file__).resolve().parent
 SRC = HERE / 'skills'
 IGNORE = shutil.ignore_patterns('__pycache__', '*.pyc', '.venv', '.work')
 
+# 0.x 时代的分散技能：内容已并入 iccad-review/references/，安装时可一并移走
+LEGACY_SKILLS = (
+    'iccad-intake', 'iccad-standards', 'iccad-rule-author', 'iccad-route',
+    'iccad-hydrology', 'iccad-dam', 'iccad-gate-pump', 'iccad-geotech',
+    'iccad-calc', 'iccad-floodeval', 'iccad-special', 'iccad-cost',
+    'iccad-coordination', 'iccad-closure', 'iccad-report', 'iccad-benchmark',
+)
+
 
 def skill_name(skill_md):
     """Read `name` from the YAML frontmatter of a SKILL.md; None if absent."""
@@ -78,6 +86,21 @@ def catalog_names():
     return [item['name'] for item in json.loads(path.read_text(encoding='utf-8'))]
 
 
+def prune_legacy(target, stamp):
+    """把旧的分散技能目录整体移到备份处（移动，不删除）。"""
+    moved, root = [], None
+    for name in LEGACY_SKILLS:
+        src = target / name
+        if not src.is_dir():
+            continue
+        if root is None:
+            root = target / f'.iccad-legacy-{stamp}'
+            root.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(src), str(root / name))
+        moved.append(name)
+    return moved, root
+
+
 def check(target):
     """Report which skills are installed and look consistent."""
     rows, bad = [], 0
@@ -94,10 +117,15 @@ def check(target):
     for name, state in rows:
         say(f'  {state:<14} {name}')
     say(f'\n{len(rows)} skills checked, {bad} problem(s). target={target}')
+    stale = [n for n in LEGACY_SKILLS if (target / n).is_dir()]
+    if stale:
+        say(f'\n注意：发现 {len(stale)} 个旧版分散技能目录，其内容已并入 iccad-review：')
+        say(f'  {", ".join(stale)}')
+        say('  重跑安装并加 --prune-legacy 可整体移到 .iccad-legacy-<时间>/ 备份。')
     return 0 if bad == 0 else 2
 
 
-def install(target, force, engine_rename=False, backup=False):
+def install(target, force, engine_rename=False, backup=False, prune=False):
     sources = discover()
     names = catalog_names()
     missing = sorted(set(p.name for p in sources) ^ set(names))
@@ -138,6 +166,13 @@ def install(target, force, engine_rename=False, backup=False):
     say(f'\n{len(sources)} skills installed to {target}')
     if backup_root:
         say(f'旧版本已备份到：{backup_root}')
+    if prune:
+        moved, root = prune_legacy(target, f'{datetime.now():%Y%m%d-%H%M%S}')
+        if moved:
+            say(f'已把 {len(moved)} 个旧版分散技能移到：{root}')
+            say(f'  {", ".join(moved)}')
+        else:
+            say('未发现旧版分散技能目录，无需清理。')
     say('Start a new session so the skill list refreshes.')
     return 0
 
@@ -151,6 +186,9 @@ def main():
                     help='If an iccad-review engine skill exists in the target, rename it to iccad-engine first')
     ap.add_argument('--backup', action='store_true',
                     help='With --force, move existing directories to a hidden .iccad-backup-<time> folder instead of deleting')
+    ap.add_argument('--prune-legacy', action='store_true',
+                    help='Move the old split skills (iccad-dam, iccad-floodeval, ...) into .iccad-legacy-<time>/ '
+                         'after installing; their content now lives inside iccad-review')
     args = ap.parse_args()
     if args.backup and not args.force:
         ap.error('--backup only makes sense together with --force')
@@ -160,7 +198,8 @@ def main():
         return check(args.target.expanduser())
     if not args.target:
         ap.error('--target is required to install')
-    return install(args.target.expanduser(), args.force, args.engine_rename, args.backup)
+    return install(args.target.expanduser(), args.force, args.engine_rename,
+                   args.backup, args.prune_legacy)
 
 
 if __name__ == '__main__':

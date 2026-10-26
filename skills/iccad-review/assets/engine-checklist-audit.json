@@ -1,0 +1,66 @@
+{
+  "_note": "合成的引擎清单核对样本（checklist_audit.py --json 的结构）。内容为虚构，只用于验证导入器把「缺失」变成疑点，不代表任何真实报告结论。",
+  "summary": {
+    "total": 3,
+    "covered": 1,
+    "partial": 1,
+    "missing": 1,
+    "cited": 3,
+    "cite_rate": 1.0,
+    "by_block": {
+      "块1 概述与评价依据": { "total": 1, "missing": 0, "partial": 0 },
+      "块5 洪水影响分析计算": { "total": 1, "missing": 1, "partial": 0 },
+      "块9 规划符合性": { "total": 1, "missing": 0, "partial": 1 }
+    }
+  },
+  "items": [
+    {
+      "id": "块1-1",
+      "block": "块1 概述与评价依据",
+      "check_point": "报告类型与目录",
+      "criteria": "与 SL/T 808 附录B 三套目录之一对得上",
+      "failure_mode": "缺章、章节顺序与目录不符",
+      "terms": ["报告类型", "目录", "附录B", "概述", "评价依据", "技术路线"],
+      "mandatory": false,
+      "status": "覆盖",
+      "coverage": 1.0,
+      "hits": ["报告类型", "目录", "附录B", "概述", "评价依据", "技术路线"],
+      "misses": [],
+      "basis_code": "SL/T 808-2025",
+      "basis_clause": "附录B",
+      "basis_text": "洪水影响评价报告参考目录分为综合类、河道类、蓄滞洪区类三套。"
+    },
+    {
+      "id": "块5-7",
+      "block": "块5 洪水影响分析计算",
+      "check_point": "阻水比",
+      "criteria": "按 6.4.2 计算总阻水比 + 河槽阻水比 + 滩地阻水比 + 占用行洪面积",
+      "failure_mode": "只给总数、口径不明",
+      "terms": ["阻水比", "总阻水比", "河槽阻水比", "滩地阻水比", "占用行洪面积"],
+      "mandatory": false,
+      "status": "缺失",
+      "coverage": 0.0,
+      "hits": [],
+      "misses": ["阻水比", "总阻水比", "河槽阻水比", "滩地阻水比", "占用行洪面积"],
+      "basis_code": "SL/T 808-2025",
+      "basis_clause": "6.4.2",
+      "basis_text": "阻水比应分别计算总阻水比、河槽阻水比和滩地阻水比，并计算占用河道行洪断面面积。"
+    },
+    {
+      "id": "块9-7",
+      "block": "块9 规划符合性与防洪标准",
+      "check_point": "法规符合性",
+      "criteria": "逐项对照综合规划、防洪规划目标要求论证",
+      "failure_mode": "仅结论称符合法律法规",
+      "terms": ["综合规划", "防洪规划", "目标要求", "逐项对照"],
+      "mandatory": true,
+      "status": "部分覆盖",
+      "coverage": 0.5,
+      "hits": ["综合规划", "防洪规划"],
+      "misses": ["目标要求", "逐项对照"],
+      "basis_code": "SL/T 808-2025",
+      "basis_clause": "7.3.4",
+      "basis_text": "应论证建设项目与水利规划、防洪规划的符合性。"
+    }
+  ]
+}

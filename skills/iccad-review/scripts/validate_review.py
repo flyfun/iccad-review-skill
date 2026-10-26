@@ -39,6 +39,10 @@ CRITERION_KINDS = {'numeric', 'qualitative', 'consistency', 'completeness'}
 CHECK_STATES = {'evaluated', 'not_applicable', 'insufficient_input', 'unsupported', 'unverified_basis', 'error'}
 CHECK_ORIGINS = {'plan', 'engine', 'manual'}
 FINDING_KINDS = {'rule_deviation', 'document_conflict', 'calculation_inconsistency', 'missing_information'}
+# 缺失类疑点的 observation 应能复现检索范围（见 references/status-mapping.md）
+SCOPE_MARKERS = ('检索范围', '未命中', '全篇', '已检索', '全文')
+# engine_ref 形如 `checker:item[@method]`；三种引擎产物各一个前缀
+ENGINE_REF_PREFIXES = {'engine-scan', 'checklist-audit', 'clause-verdict'}
 PRIORITIES = {'P1', 'P2', 'P3'}
 CONFIDENCES = {'high', 'medium', 'low'}
 REVIEW_STATUS = {'pending', 'adopted', 'not_applicable', 'undetermined'}
@@ -366,6 +370,16 @@ class Validator:
             engine_ref = c.get('engine_ref')
             if origin == 'engine' and not engine_ref:
                 self.error(label + '.engine_ref: required for engine-origin checks')
+            if engine_ref is not None:
+                self.text(engine_ref, label + '.engine_ref')
+                if isinstance(engine_ref, str):
+                    if len(engine_ref) > 160:
+                        self.error(label + '.engine_ref: keep it under 160 chars (checker:item[@method])')
+                    head, sep, _ = engine_ref.partition(':')
+                    # 只对带前缀的写法提示；旧格式（无冒号）保持静默兼容
+                    if sep and head not in ENGINE_REF_PREFIXES:
+                        self.note(label + f'.engine_ref: unknown checker prefix {head!r}; '
+                                        f'expected one of {sorted(ENGINE_REF_PREFIXES)}')
             if status == 'evaluated':
                 if rid is None and origin != 'engine':
                     self.error(label + ': evaluated check needs a rule_id or origin=engine')
@@ -505,8 +519,13 @@ class Validator:
                 self.error(label + ': document_conflict needs evidence from at least two different sources')
             if kind == 'calculation_inconsistency' and len(evidence) < 2:
                 self.error(label + ': calculation_inconsistency needs both calculation and report locations')
-            if kind == 'missing_information' and not f.get('observation'):
-                self.error(label + ': missing_information must state the searched scope')
+            if kind == 'missing_information':
+                obs = f.get('observation') or ''
+                if not obs:
+                    self.error(label + ': missing_information must state the searched scope')
+                elif not any(k in obs for k in SCOPE_MARKERS):
+                    self.note(label + ': missing_information should record the searched scope '
+                                     '(检索范围 / 未命中 / 全篇 / 已检索) so the gap is reproducible')
             if check is not None and check.get('status') == 'evaluated' and check.get('result') != 'signal':
                 self.error(f'{label}: linked check {cid} did not report a signal')
             self.read_review(self.obj(f.get('review'), label + '.review'), label, priority)
